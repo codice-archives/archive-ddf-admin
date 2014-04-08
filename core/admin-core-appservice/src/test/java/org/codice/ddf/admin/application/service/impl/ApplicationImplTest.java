@@ -12,7 +12,7 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  *
  **/
-package org.codice.ddf.platform.status.impl;
+package org.codice.ddf.admin.application.service.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -30,7 +30,6 @@ import org.apache.karaf.features.Feature;
 import org.apache.karaf.features.Repository;
 import org.apache.karaf.features.internal.RepositoryImpl;
 import org.codice.ddf.admin.application.service.Application;
-import org.codice.ddf.admin.application.service.impl.ApplicationImpl;
 import org.junit.Test;
 
 /**
