@@ -12,7 +12,7 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  *
  **/
-/*global define, alert*/
+/*global define, alert, window, location*/
 /** Main view page for add. */
 define([
     'marionette',
@@ -64,7 +64,9 @@ define([
         finish: function() {
             this.model.trigger('block');
             this.model.set({message: 'Completing installation. Please wait...'});
-            this.model.save().fail(function() {
+            this.model.save().done(function() {
+                window.location = "http://" + location.hostname + (location.port ? ':' + location.port : '') + "/system/console";
+            }).fail(function() {
                 alert('Final installation failed, please check application logs for details.');
             });
         }
