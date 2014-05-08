@@ -26,7 +26,7 @@
     <name>DDF Admin</name>
     <artifactId>admin</artifactId>
     <groupId>ddf.admin</groupId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -61,4 +61,8 @@
 	    <url>http://artifacts.codice.org/content/groups/public/</url>
 	</repository>
     </repositories>
+
+  <scm>
+    <tag>ddf-admin-1.0.1</tag>
+  </scm>
 </project>
