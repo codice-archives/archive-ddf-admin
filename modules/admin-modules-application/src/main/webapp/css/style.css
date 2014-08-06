@@ -13,248 +13,419 @@
  *
  **/
 .white {
-    background-color: rgba(255, 255, 255, 1);
-}
+  background-color: white; }
+
 #application-view {
-    position: relative;
-}
+  position: relative; }
+
 #application-view .appview {
-    margin: 20px;
-}
+  margin: 20px; }
+
 .full-height {
-    height: 100%;
-}
+  height: 100%; }
+
 .application-scroll {
-    height: calc(100% - 40px);
-}
+  height: calc(100% - 40px); }
+
 .sidebar {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 50%;
-    padding: 10px;
-}
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 50%;
+  padding: 10px; }
+
 .appview {
-    width: 50%;
-}
+  width: 50%; }
+
 .appitem {
-    padding-left: 10px;
-    font-weight: 500;
-}
+  padding-left: 10px;
+  font-weight: 500; }
+
 div.appview > div > ul {
-    padding: 0;
-}
+  padding: 0; }
+
 .app-node li {
-    list-style: none;
-}
+  list-style: none; }
+
 .version-text {
-    color: #DDD;
-    font-size: smaller;
-}
+  color: #DDD;
+  font-size: smaller; }
+
 .new-app-container {
-    clear: both;
-}
+  clear: both; }
+
 .new-app-btn {
-    padding-bottom: 20px;
-}
+  padding-bottom: 20px; }
+
 .app-status-area {
-    margin: 20px 0px;
-    height: 30px;
-    width: 100%;
-    color: #3498db;
-}
+  margin: 20px 0px;
+  height: 30px;
+  width: 100%;
+  color: #3498db; }
+
 .fileinput-button input {
-    height: 100%;
-}
+  height: 100%; }
+
 .fileinput-button {
-    margin: 10px;
-}
+  margin: 10px; }
+
 .url-tab {
-    margin: 10px;
-}
+  margin: 10px; }
+
 .url-tab > a {
-    margin-top: -4px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
+  margin-top: -4px;
+  padding-top: 5px;
+  padding-bottom: 5px; }
+
 .url-tab > input {
-    width: 80%;
-}
+  width: 80%; }
+
 .url-list {
-    padding: 0;
-    margin-top: 10px;
-}
+  padding: 0;
+  margin-top: 10px; }
+
 .url-list-item {
-    list-style-type: none;
-    margin-bottom: 5px;
-    padding: 5px;
-    text-align: left;
-    background-color: #EFEFEF;
-    margin-right: 16px;
-    color: #3498db;
-    white-space: nowrap;
-    overflow-x: hidden;
-    position: relative;
-}
+  list-style-type: none;
+  margin-bottom: 5px;
+  padding: 5px;
+  text-align: left;
+  background-color: #EFEFEF;
+  margin-right: 16px;
+  color: #3498db;
+  white-space: nowrap;
+  overflow-x: hidden;
+  position: relative; }
+
 .url-list-item > a {
-    position: absolute;
-    right: 0px;
-    top: 5px;
-}
+  position: absolute;
+  right: 0px;
+  top: 5px; }
+
 .url-list-item input {
-    width: 60%;
-    margin-right: 3px;
-}
+  width: 60%;
+  margin-right: 3px; }
+
 .editing {
-    display: none;
-}
+  display: none; }
+
 .done {
-    padding: 2px;
-    margin-top:-4px
-}
+  padding: 2px;
+  margin-top: -4px; }
+
 .remove-url-link {
-    background-color: #EFEFEF;
-    padding: 4px;
-}
+  background-color: #EFEFEF;
+  padding: 4px; }
+
 .warning-info {
-    color: #AAA;
-}
+  color: #AAA; }
+
 .file-list {
-    padding: 0;
-    margin-top: 10px;
-}
+  padding: 0;
+  margin-top: 10px; }
+
 .file-list-item {
-    list-style-type: none;
-    margin-bottom: 5px;
-    padding: 5px;
-    text-align: left;
-    margin-right: 16px;
-    color: #AAA;
-    white-space: nowrap;
-    overflow-x: hidden;
-    position: relative;
-}
+  list-style-type: none;
+  margin-bottom: 5px;
+  padding: 5px;
+  text-align: left;
+  margin-right: 16px;
+  color: #AAA;
+  white-space: nowrap;
+  overflow-x: hidden;
+  position: relative; }
+
 .file-info-area {
-    float: left;
-}
+  float: left; }
+
 .file-progress-area {
-    clear: both;
-}
+  clear: both; }
+
 .fileupload-progress {
-    clear: both;
-}
+  clear: both; }
+
 .file-attrs {
-    list-style-type: none;
-    padding: 0;
-}
+  list-style-type: none;
+  padding: 0; }
+
 .file-finish-area {
-    float: right;
-    margin-top: 40px;
-}
+  float: right;
+  margin-top: 40px; }
+
 .file-finish-text {
-    color: green;
-}
+  color: green; }
+
 .file-fail-text {
-    color: red;
-}
+  color: red; }
+
 .cancel-upload-link {
-    color: red;
-}
+  color: red; }
+
 a.fa-minus-circle {
-    text-decoration: none;
-}
+  text-decoration: none; }
+
 a.fa-minus-circle-disabled {
-    cursor: not-allowed;
-    opacity: 0.3;
-    filter: Alpha(opacity=30); /* IE 8 and earlier */
-}
+  cursor: not-allowed;
+  opacity: 0.3;
+  filter: Alpha(opacity=30);
+  /* IE 8 and earlier */ }
+
 a.fa-minus-circle-selected {
-    color: red;   
-}
+  color: red; }
 
 /**
  *  The following is used for the Applications Module.  Not the Applications
  *  code that runs in the Installer UI.
  **/
 #application-outline {
-    position: relative;
-    padding: 20px;
-    background-color: #ecf0f1;
-}
+  position: relative; }
+
+#application-outline .appview {
+  margin: 20px; }
+
 .application-grid-buttons {
-    padding-bottom: 25px;
-}
+  padding-bottom: 25px; }
+
 .btn.btn-default.toggle {
-    float:right;
-}
+  float: right; }
+
 .btn.btn-info.cancel {
-    margin-top: 15px;
-}
-.apps-grid {
-    border: black 10px;
-    padding: 15px 15px 0px 15px;
-}
+  margin-top: 15px; }
+
 .appInfo {
-    background-color: #B0C4DE;
-    margin: 0px 15px 15px 0px;
-    padding: 5px 10px;
-}
+  background-color: #B0C4DE;
+  margin: 0;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px; }
+
 .row {
-    table-layout:fixed;
-    width: 500px;
-}
+  table-layout: fixed;
+  width: 500px; }
+
 .box {
-    display:inline-block;
-    table-layout:auto;
-    width: 300px;
-}
-.stopApp {
-    color: black;
-    float: right;
-    padding: 5px;
-}
-.stopAppHide {
-    display: none;
-}
-.startApp {
-    color: black;
-    float: right;
-    padding: 5px;
-}
-.startAppHide {
-    display: none;
-}
+  display: inline-block;
+  table-layout: auto;
+  width: 300px; }
+
+.removeApp {
+  color: black;
+  float: right;
+  padding-top: 5px;
+  padding-right: 5px; }
+
+.removeHide {
+  display: none; }
+
+.installApp {
+  color: black;
+  float: right;
+  padding-top: 5px;
+  padding-right: 5px; }
+
+.installHide {
+  display: none; }
+
 .name {
-    font-weight: bold;
-    font-size: 125%;
-}
+  font-weight: bold;
+  font-size: 125%; }
+
 .version {
-    margin-left: 20px;
-}
-.rowDescription {
-    margin: 3px 0px 3px 20px;
-    width: 450px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 100%;
-}
-.boxDescription {
-    margin: 3px 0px 3px 20px;
-    width: 250px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 100%;
-}
-.descriptionButton {
-    float:right;
-    margin: 3px 3px 3px 20px;
-    padding: 0px 5px;
-}
+  margin-left: 20px; }
+
 .application-status {
-    margin: 20px 0px;
-    height: 30px;
+  margin: 20px 0px;
+  height: 30px;
+  width: 100%;
+  color: #3498db; }
+
+#applications .page-layout .header {
+  padding: 0px 10px 10px 10px; }
+
+.application-grid-buttons {
+  padding-bottom: 10px;
+  overflow: auto; }
+
+.show-container {
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 2px; }
+
+.apps-grid {
+  max-height: 600px;
+  overflow: auto; }
+  .apps-grid .grid-cell {
+    width: 20%;
+    margin: 0;
+    padding: 1%;
+    vertical-align: top;
+    float: left; }
+  .apps-grid[list-type="list"] .grid-cell {
+    float: none;
     width: 100%;
-    color: #3498db;
-}
+    padding: 0px; }
+
+.card-style-toggle .btn {
+  padding: 7px 6px 4px 6px; }
+  .card-style-toggle .btn i {
+    font-size: 30px; }
+
+.show-select {
+  width: auto;
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 1px; }
+
+.edit-toggle .active-text {
+  display: none; }
+.edit-toggle.active .active-text {
+  display: inherit; }
+.edit-toggle.active .not-active-text {
+  display: none; }
+
+.breadcrumb {
+  font-size: 2em;
+  padding: 0px 15px;
+  margin: 0px; }
+
+.app-card {
+  padding: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  border-radius: 6px;
+  height: 250px;
+  position: relative; }
+  .app-card .panel-body {
+    padding: 0px;
+    height: 100%; }
+  .app-card .description {
+    height: 150px; }
+    .app-card .description .divider {
+      margin: 1px 0px; }
+  .app-card hr {
+    margin-bottom: 6px;
+    margin-top: 6px; }
+  .app-card .badges {
+    position: absolute;
+    bottom: 5px;
+    left: 5px; }
+  .app-card .card-overlay.right {
+    right: 0;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px; }
+  .app-card .card-overlay.left {
+    right: 60px;
+    border-right: 1px darkgray solid; }
+  .app-card .card-overlay {
+    position: absolute;
+    visibility: hidden;
+    background-color: white;
+    opacity: 1;
+    top: 0;
+    bottom: 0;
+    vertical-align: middle;
+    width: 60px;
+    z-index: 1; }
+    .app-card .card-overlay i {
+      cursor: pointer;
+      color: white;
+      transition: color 200ms ease; }
+      .app-card .card-overlay i:hover {
+        color: green; }
+    .app-card .card-overlay .divider {
+      margin: 5px 0px; }
+  .app-card:hover {
+    background-color: #ecf0f1;
+    transition: background-color 600ms ease, opacity 600ms ease; }
+    .app-card:hover .card-overlay {
+      visibility: visible;
+      opacity: 1;
+      background-color: #1e2a36;
+      transition: background-color 600ms ease, opacity 600ms ease; }
+  .app-card.new-or-update-app {
+    cursor: pointer;
+    text-align: center; }
+    .app-card.new-or-update-app i {
+      font-size: 50px; }
+
+.apps-grid[list-type="list"] .app-card {
+  height: 100px;
+  border-top-width: 0px;
+  border-radius: 0px; }
+  .apps-grid[list-type="list"] .app-card .card-overlay {
+    border-radius: 0px; }
+  .apps-grid[list-type="list"] .app-card.panel {
+    margin-bottom: 0px; }
+.apps-grid[list-type="list"] .list-hidden {
+  display: none; }
+.apps-grid[list-type="list"] .name-version-container {
+  display: inline-block;
+  width: 20%;
+  vertical-align: top; }
+.apps-grid[list-type="list"] .description {
+  display: inline-block;
+  width: 70%;
+  height: 87px; }
+.apps-grid[list-type="list"] .app-card.new-or-update-app {
+  border-top-width: 1px;
+  cursor: pointer;
+  text-align: center; }
+  .apps-grid[list-type="list"] .app-card.new-or-update-app h3 {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0; }
+  .apps-grid[list-type="list"] .app-card.new-or-update-app i {
+    vertical-align: middle; }
+
+.block {
+  text-align: center;
+  height: 100%; }
+  .block:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+    /* Adjusts for spacing */ }
+  .block .centered {
+    display: inline-block;
+    vertical-align: middle; }
+
+.vertical-align-middle {
+  display: inline-block;
+  vertical-align: middle; }
+
+.clear-margins {
+  margin: 0px; }
+
+.ellipsis {
+  overflow: hidden; }
+  .ellipsis:before {
+    content: "";
+    float: left;
+    width: 5px;
+    height: 100%; }
+  .ellipsis > *:first-child {
+    float: right;
+    width: 100%;
+    margin-left: -5px; }
+  .ellipsis:after {
+    content: "\02026\00a0\00a0";
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    float: right;
+    position: relative;
+    top: -25px;
+    left: 100%;
+    width: 3em;
+    margin-left: -3em;
+    padding-right: 5px;
+    text-align: right;
+    background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(#ffffff), color-stop(50%, #ffffff));
+    background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, #ffffff);
+    background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, #ffffff);
+    background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, #ffffff);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, #ffffff); }

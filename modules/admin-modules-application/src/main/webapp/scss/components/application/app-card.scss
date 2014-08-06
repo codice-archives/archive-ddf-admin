@@ -1,0 +1,156 @@
+.app-card {
+  padding: 6px;
+  @include border-radius(6px);
+  height: 250px;
+  position: relative;
+
+  .panel-body {
+    padding: 0px; // reset bootstrap
+    height: 100%;
+  }
+
+  .description {
+    height: 150px;
+    .divider {
+      margin: 1px 0px;
+    }
+  }
+
+  hr {
+    margin-bottom: 6px;
+    margin-top: 6px;
+  }
+
+  .badges {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+  }
+
+  .card-overlay.right {
+    right: 0;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+
+  }
+  .card-overlay.left {
+    right: 60px;
+    border-right: 1px darkgray solid;
+  }
+
+  .card-overlay {
+    position: absolute;
+    visibility: hidden;
+    background-color:white;
+    opacity: 1;
+    top:0;
+    bottom:0;
+    vertical-align: middle;
+    width: 60px;
+    z-index: 1;
+    i {
+      cursor: pointer;
+      color: white;
+
+      transition: color 200ms ease;
+      &:hover {
+        color: green;
+      }
+    }
+
+    .divider {
+      margin: 5px 0px;
+    }
+  }
+
+  &:hover {
+    background-color: #ecf0f1;
+    transition: background-color 600ms ease, opacity 600ms ease;
+    .card-overlay {
+      visibility: visible;
+      opacity: 1;
+      background-color: #1e2a36;
+      transition: background-color 600ms ease, opacity 600ms ease;
+    }
+
+  }
+
+  // new app card
+  &.new-or-update-app {
+    cursor: pointer;
+    text-align: center;
+    i {
+      font-size: 50px;
+    }
+  }
+
+
+}
+
+/////
+// list variant
+////
+.apps-grid[list-type="list"] {
+
+  .app-card {
+    height: 100px;
+    border-top-width: 0px;
+    border-radius: 0px;
+
+    .card-overlay {
+      border-radius: 0px;
+    }
+    &.panel {
+      margin-bottom: 0px;
+    }
+  }
+
+  .list-hidden {
+    display: none;
+  }
+
+  .name-version-container {
+    display: inline-block;
+    width: 20%;
+    vertical-align: top;
+  }
+  .description {
+    display: inline-block;
+    width: 70%;
+    height: 87px;
+  }
+
+  .app-card.new-or-update-app {
+    border-top-width: 1px;
+    cursor: pointer;
+    text-align: center;
+    h3 {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+    }
+    i {
+      vertical-align: middle;
+    }
+  }
+}
+
+
+// Centerize voodoo magic.
+.block {
+  text-align: center;
+  height: 100%;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+  }
+
+  .centered {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}

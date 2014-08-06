@@ -21,17 +21,19 @@ define([
     'icanhaz',
     'underscore',
     'jquery',
+    'js/application',
     'text!applicationNew',
     'text!mvnItemTemplate',
     'text!fileProgress',
     'text!applicationOutlineButtons',
     'text!applicationInfo',
     'text!applicationGrid',
+    'text!addApplicationCard',
     '/applications/js/wreqr.js',
     'fileupload',
     'perfectscrollbar'
-], function(require, Backbone, Marionette, ich, _, $, applicationNew, mvnItemTemplate, fileProgress,
-            applicationOutlineButtons, applicationInfo, applicationGrid, wreqr) {
+], function(require, Backbone, Marionette, ich, _, $, Application, applicationNew, mvnItemTemplate, fileProgress,
+            applicationOutlineButtons, applicationInfo, applicationGrid, addApplicationCardTemplate, wreqr) {
     "use strict";
 
     if(!ich.applicationNew) {
@@ -152,10 +154,19 @@ define([
             'shown.bs.tab': 'setFocus',
             'click .submit-button': 'saveChanges',
             'click .cancel-button': 'cancelChanges',
-            'hidden.bs.modal': 'cancelChanges'
+            'hidden.bs.modal': 'cancelChanges',
+            'click .edit-toggle':'editToggleClicked',
+            'change .card-style-toggle .btn': 'toggleDisplayOptions'
+        },
+        modelEvents: {
+            'change': 'modelChanged'
         },
         initialize: function(options) {
             this.response = options.response;
+            this.model = new Backbone.Model({
+                isEditMode: false,
+                displayMode: 'card'
+            });
         },
         onRender: function() {
             var view = this;
@@ -235,7 +246,19 @@ define([
                 mvnUrlColl.reset();
                 fileUploadColl.reset();
             });
+        },
+        editToggleClicked: function(evt){
+            this.model.set({isEditMode: !this.model.get('isEditMode')});
+            this.$(evt.currentTarget).toggleClass('active');
+        },
+        modelChanged: function(evt){
+            this.$(evt.currentTarget).toggleClass('active', this.model.get('isEditMode'));
+        },
+        toggleDisplayOptions: function(){
+            var value = this.$('input[name="display-options"]:checked').val();
+            $('.apps-grid').attr('list-type', value); // we should really make this event based.
         }
+
     });
 
     // List of apps that cannot have any actions performed on them through
@@ -249,19 +272,28 @@ define([
     var AppInfoView = Marionette.ItemView.extend({
         template: 'applicationInfo',
         tagName: 'div',
-        className: 'appInfo row box',
+        className: 'grid-cell',
         itemViewOptions: {},
         events: {
             'click .fa.fa-times.stopApp': 'stopMessage',
             'click .fa.fa-download.startApp': 'startMessage',
             'click .stopAppConfirm': 'stopPrompt',
-            'click .startAppConfirm': 'startPrompt'
+            'click .startAppConfirm': 'startPrompt',
+            'click .fa.fa-times.removeApp': 'removeMessage',
+            'click .fa.fa-download.installApp': 'installMessage',
+            'click .removeConfirm': 'removePrompt',
+            'click .installConfirm': 'installPrompt',
+            'click .select-application': 'selectApplication'
         },
         initialize: function () {
             this.modelBinder = new Backbone.ModelBinder();
         },
         onRender: function () {
             this.bind();
+            this.$('*[data-toggle="tooltip"]').tooltip();
+        },
+        onBeforeClose: function(){
+            this.$('*[data-toggle="tooltip"]').tooltip('destroy');
         },
         bind: function () {
             var bindings = {};
@@ -330,13 +362,17 @@ define([
         startPrompt: function() {
             this.startMessage();
             this.model.toggleChosenApp();
+            this.model.flagRemove();
+        },
+        selectApplication: function(){
+            Application.App.vent.trigger('application:selected',this.model);
         }
     });
 
     // Collection of all the applications
     var AppInfoCollectionView = Marionette.CollectionView.extend({
         itemView: AppInfoView,
-        className: 'apps-grid',
+        className: 'apps-grid list',
         itemViewOptions: {},
         events: {
             'click .fa.fa-times.stopApp': 'stopPrompt',
@@ -351,6 +387,13 @@ define([
             this.listenTo(wreqr.vent, 'toggle:state', this.toggleState);
         },
         // Shows the applications in the proper state upon a re-render
+
+        onRender: function(){
+            if(this.$('.new-or-update-app').length === 0){
+                this.$el.prepend(addApplicationCardTemplate);
+            }
+        },
+
         showCollection: function(){
             this.collection.each(function(item, index){
                 if(this.AppShowState === item.get('state')) {
@@ -404,7 +447,7 @@ define([
     var ApplicationView = Marionette.Layout.extend({
         template: 'applicationGrid',
         tagName: 'div',
-        className: 'full-height',
+        className: 'full-height well',
         regions: {
             applicationGridButtons: '#application-grid-buttons',
             appsgrid: '#apps-grid',
@@ -414,6 +457,9 @@ define([
             'click .btn.btn-success.start': 'startAppView',
             'click .btn.btn-primary.stop': 'stopAppView',
             'click .btn.btn-default.toggle': 'toggleClick',
+            'click .btn.btn-success.install': 'installAppView',
+            'click .btn.btn-primary.remove': 'removeAppView',
+            'change input[name="options"]':'displayOptionChanged',
             'click .btn.btn-info.cancel': 'refreshView',
             'click button.stopAppConfirm': 'confirmStop',
             'click button.startAppConfirm': 'confirmStart',

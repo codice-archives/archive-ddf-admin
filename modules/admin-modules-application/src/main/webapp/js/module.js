@@ -26,11 +26,8 @@ define([
         require([
                 '/applications/js/view/ApplicationGrid.view.js',
                 '/applications/js/model/ApplicationsLayout.js',
-               '/applications/js/view/features/Features.view.js',
-               '/applications/js/model/features/Feature.js'
-
-            ], function(ApplicationView, ApplicationModel, FeaturesView, FeatureModel) {
-            var appPage = new ApplicationView({modelClass: ApplicationModel, enableApplicationRemoval: true});
+                '/applications/js/view/application-detail/ApplicationDetail.layout.js'
+            ], function(ApplicationView, ApplicationModel, ApplicationDetailLayout) {
 
             // Define a controller to run this module
             // --------------------------------------
@@ -39,10 +36,15 @@ define([
 
                 initialize: function(options){
                     this.region = options.region;
+                    this.listenTo(App.vent,'application:selected' , this.showDetailsPage);
+                    this.listenTo(App.vent,'navigateTo:applicationHome' , this.show);
                 },
 
                 show: function(){
-                    this.region.show(appPage);
+                    this.region.show(new ApplicationView({modelClass: ApplicationModel, enableApplicationRemoval: true}));
+                },
+                showDetailsPage: function(application){
+                    this.region.show(new ApplicationDetailLayout({model: application}));
                 }
 
             });
