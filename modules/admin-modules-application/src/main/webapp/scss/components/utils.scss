@@ -3,6 +3,10 @@
   vertical-align: middle;
 }
 
+.full-height {
+  height: 100%;
+}
+
 .clear-margins {
   margin: 0px;
 }
@@ -45,5 +49,24 @@
     background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
     background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
     background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+  }
+}
+
+// Centerize voodoo magic.
+.block {
+  text-align: center;
+  height: 100%;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+  }
+
+  .centered {
+    display: inline-block;
+    vertical-align: middle;
   }
 }

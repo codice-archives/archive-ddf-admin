@@ -12,9 +12,26 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  *
  **/
-@import "variables.scss";
-@import "components/mixins.scss";
-@import "components/core.scss";
-@import "components/application/init.scss";
-@import "components/utils.scss";
+define([
+    'marionette',
+    'js/application',
+    '/applications/js/view/application-detail/ApplicationDetail.layout.js'
+    ],function (Marionette, Application, ApplicationDetailLayout) {
 
+    var App = Application.App;
+
+    var AppDetailController = Marionette.Controller.extend({
+
+        initialize: function(){
+            this.listenTo(App.vent,'application:selected' , this.showDetailsPage);
+        },
+        showDetailsPage: function(applicationModel) {
+            App.applications.show(new ApplicationDetailLayout({model: applicationModel}));
+        }
+    });
+
+    return AppDetailController;
+
+
+
+});

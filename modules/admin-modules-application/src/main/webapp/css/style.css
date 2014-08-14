@@ -21,9 +21,6 @@
 #application-view .appview {
   margin: 20px; }
 
-.full-height {
-  height: 100%; }
-
 .application-scroll {
   height: calc(100% - 40px); }
 
@@ -247,13 +244,18 @@ a.fa-minus-circle-selected {
   padding-bottom: 10px;
   overflow: auto; }
 
-.show-container {
-  display: inline-block;
-  vertical-align: middle;
-  padding-top: 2px; }
+.apps-grids {
+  height: 700px;
+  overflow: auto; }
+  .apps-grids hr {
+    margin: 6px 6px 0px 6px; }
+
+.apps-grid-header {
+  font-weight: bold;
+  margin: 0;
+  padding: 12px 0px 0px 12px; }
 
 .apps-grid {
-  max-height: 600px;
   overflow: auto; }
   .apps-grid .grid-cell {
     width: 20%;
@@ -289,6 +291,14 @@ a.fa-minus-circle-selected {
   padding: 0px 15px;
   margin: 0px; }
 
+.show-in-edit-mode {
+  display: none; }
+
+.edit-mode .show-in-edit-mode {
+  display: block; }
+.edit-mode .hide-in-edit-mode {
+  display: none; }
+
 .app-card {
   padding: 6px;
   -webkit-border-radius: 6px;
@@ -313,20 +323,23 @@ a.fa-minus-circle-selected {
     left: 5px; }
   .app-card .card-overlay.right {
     right: 0;
+    top: 0;
+    bottom: 0;
     border-bottom-right-radius: 4px;
-    border-top-right-radius: 4px; }
-  .app-card .card-overlay.left {
-    right: 60px;
-    border-right: 1px darkgray solid; }
+    border-top-right-radius: 4px;
+    width: 60px; }
+  .app-card .card-overlay.bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    width: auto; }
   .app-card .card-overlay {
     position: absolute;
     visibility: hidden;
     background-color: white;
-    opacity: 1;
-    top: 0;
-    bottom: 0;
+    opacity: 0;
     vertical-align: middle;
-    width: 60px;
     z-index: 1; }
     .app-card .card-overlay i {
       cursor: pointer;
@@ -338,17 +351,26 @@ a.fa-minus-circle-selected {
       margin: 5px 0px; }
   .app-card:hover {
     background-color: #ecf0f1;
-    transition: background-color 600ms ease, opacity 600ms ease; }
-    .app-card:hover .card-overlay {
+    transition: background-color 400ms ease, opacity 400ms ease; }
+    .app-card:hover .card-overlay.right {
       visibility: visible;
       opacity: 1;
       background-color: #1e2a36;
-      transition: background-color 600ms ease, opacity 600ms ease; }
+      transition: background-color 400ms ease, opacity 400ms ease; }
   .app-card.new-or-update-app {
     cursor: pointer;
     text-align: center; }
     .app-card.new-or-update-app i {
       font-size: 50px; }
+
+.edit-mode .card-overlay.bottom {
+  visibility: visible;
+  opacity: 1;
+  background-color: #1e2a36; }
+  .edit-mode .card-overlay.bottom:hover {
+    visibility: visible;
+    opacity: 1;
+    background-color: #1e2a36; }
 
 .apps-grid[list-type="list"] .app-card {
   height: 100px;
@@ -356,6 +378,12 @@ a.fa-minus-circle-selected {
   border-radius: 0px; }
   .apps-grid[list-type="list"] .app-card .card-overlay {
     border-radius: 0px; }
+  .apps-grid[list-type="list"] .app-card .card-overlay.bottom {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: auto;
+    width: 80px; }
   .apps-grid[list-type="list"] .app-card.panel {
     margin-bottom: 0px; }
 .apps-grid[list-type="list"] .list-hidden {
@@ -379,23 +407,15 @@ a.fa-minus-circle-selected {
   .apps-grid[list-type="list"] .app-card.new-or-update-app i {
     vertical-align: middle; }
 
-.block {
-  text-align: center;
-  height: 100%; }
-  .block:before {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    margin-right: -0.25em;
-    /* Adjusts for spacing */ }
-  .block .centered {
-    display: inline-block;
-    vertical-align: middle; }
+.not-installed .apps-grid[list-type="list"] .grid-cell:first-child .app-card {
+  border-top-width: 1px; }
 
 .vertical-align-middle {
   display: inline-block;
   vertical-align: middle; }
+
+.full-height {
+  height: 100%; }
 
 .clear-margins {
   margin: 0px; }
@@ -429,3 +449,17 @@ a.fa-minus-circle-selected {
     background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, #ffffff);
     background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, #ffffff);
     background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, #ffffff); }
+
+.block {
+  text-align: center;
+  height: 100%; }
+  .block:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+    /* Adjusts for spacing */ }
+  .block .centered {
+    display: inline-block;
+    vertical-align: middle; }

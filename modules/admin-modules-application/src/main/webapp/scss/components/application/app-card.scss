@@ -29,24 +29,27 @@
 
   .card-overlay.right {
     right: 0;
+    top:0;
+    bottom:0;
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
+    width: 60px;
 
   }
-  .card-overlay.left {
-    right: 60px;
-    border-right: 1px darkgray solid;
+  .card-overlay.bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    width: auto;
   }
 
   .card-overlay {
     position: absolute;
     visibility: hidden;
     background-color:white;
-    opacity: 1;
-    top:0;
-    bottom:0;
+    opacity: 0;
     vertical-align: middle;
-    width: 60px;
     z-index: 1;
     i {
       cursor: pointer;
@@ -64,15 +67,14 @@
   }
 
   &:hover {
-    background-color: #ecf0f1;
-    transition: background-color 600ms ease, opacity 600ms ease;
-    .card-overlay {
+    background-color: $bs-btn-well-default-background-color;
+    transition: background-color 400ms ease, opacity 400ms ease;
+    .card-overlay.right {
       visibility: visible;
       opacity: 1;
-      background-color: #1e2a36;
-      transition: background-color 600ms ease, opacity 600ms ease;
+      background-color: $bs-btn-primary-backbround-color;
+      transition: background-color 400ms ease, opacity 400ms ease;
     }
-
   }
 
   // new app card
@@ -83,13 +85,25 @@
       font-size: 50px;
     }
   }
+}
 
+.edit-mode .card-overlay.bottom{
+  visibility: visible;
+  opacity: 1;
+  background-color: $bs-btn-primary-backbround-color;
 
+  &:hover {
+    visibility: visible;
+    opacity: 1;
+    background-color: $bs-btn-primary-backbround-color;
+  }
 }
 
 /////
 // list variant
 ////
+
+
 .apps-grid[list-type="list"] {
 
   .app-card {
@@ -100,6 +114,15 @@
     .card-overlay {
       border-radius: 0px;
     }
+
+    .card-overlay.bottom {
+      right: 0;
+      top:0;
+      bottom:0;
+      left: auto;
+      width: 80px;
+    }
+
     &.panel {
       margin-bottom: 0px;
     }
@@ -135,22 +158,6 @@
   }
 }
 
-
-// Centerize voodoo magic.
-.block {
-  text-align: center;
-  height: 100%;
-
-  &:before {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    margin-right: -0.25em; /* Adjusts for spacing */
-  }
-
-  .centered {
-    display: inline-block;
-    vertical-align: middle;
-  }
+.not-installed .apps-grid[list-type="list"] .grid-cell:first-child .app-card {
+  border-top-width: 1px;
 }

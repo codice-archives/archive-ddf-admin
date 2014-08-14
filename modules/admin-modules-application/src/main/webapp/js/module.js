@@ -24,39 +24,27 @@ define([
     Application.App.module('Applications', function(ApplicationModule, App, Backbone, Marionette, $, _) {
 
         require([
-                '/applications/js/view/ApplicationGrid.view.js',
-                '/applications/js/model/ApplicationsLayout.js',
-                '/applications/js/view/application-detail/ApplicationDetail.layout.js'
-            ], function(ApplicationView, ApplicationModel, ApplicationDetailLayout) {
+                '/applications/js/controller/App.controller.js',
+                '/applications/js/controller/AppDetail.controller.js'
+            ], function(AppController, AppDetailController) {
 
             // Define a controller to run this module
             // --------------------------------------
 
-            var Controller = Marionette.Controller.extend({
 
-                initialize: function(options){
-                    this.region = options.region;
-                    this.listenTo(App.vent,'application:selected' , this.showDetailsPage);
-                    this.listenTo(App.vent,'navigateTo:applicationHome' , this.show);
-                },
-
-                show: function(){
-                    this.region.show(new ApplicationView({modelClass: ApplicationModel, enableApplicationRemoval: true}));
-                },
-                showDetailsPage: function(application){
-                    this.region.show(new ApplicationDetailLayout({model: application}));
-                }
-
-            });
 
             // Initialize this module when the app starts
             // ------------------------------------------
 
             ApplicationModule.addInitializer(function(){
-                ApplicationModule.contentController = new Controller({
-                    region: App.applications
-                });
-                ApplicationModule.contentController.show();
+
+
+                ApplicationModule.controllers = {};
+                ApplicationModule.controllers.appController = new AppController();
+                ApplicationModule.controllers.appDetailController = new AppDetailController();
+
+                // display main app home.
+                ApplicationModule.controllers.appController.show();
             });
         });
     });

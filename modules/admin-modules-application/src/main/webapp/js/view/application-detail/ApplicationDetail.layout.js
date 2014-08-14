@@ -24,7 +24,9 @@ define([
 
     ich.addTemplate('applicationDetailLayout', applicationDetailLayout);
 
-    var DetailedApplicationLayout = Marionette.ItemView.extend({
+    var App = Application.App;
+
+    var DetailedApplicationLayout = Marionette.Layout.extend({
         template: 'applicationDetailLayout',
         regions: {
             content: '.content'
@@ -32,9 +34,12 @@ define([
         events: {
             'click .nav-to-applications': 'navToApplications'
         },
+        onRender: function(){
+            console.log(App.module('Applications'));  // use this object to get reference to module.controllers
+        },
         navToApplications: function(e){
             e.preventDefault();
-            Application.App.vent.trigger('navigateTo:applicationHome');
+            App.vent.trigger('navigateTo:applicationHome');
         }
     });
 
