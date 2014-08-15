@@ -1,0 +1,92 @@
+.application-grid-buttons {
+  padding-bottom: 10px;
+  overflow: auto;
+}
+
+.apps-grids{
+  height: 700px;
+  overflow: auto;
+
+  hr {
+    margin: 6px 6px 0px 6px;
+  }
+}
+
+
+.apps-grid-header {
+  font-weight: bold;
+  margin: 0;
+  padding: 12px 0px 0px 12px;
+}
+
+.apps-grid {
+  overflow: auto;
+  .grid-cell {
+    width: (100% / 5.0);
+    margin: 0;
+    padding: 1%;
+    vertical-align: top;
+    float: left;
+  }
+
+  &[list-type="list"] {
+    .grid-cell {
+      float: none;
+      width: 100%;
+      padding: 0px;
+    }
+  }
+}
+
+.card-style-toggle {
+  .btn {
+    padding: 7px 6px 4px 6px;
+    i {
+      font-size: 30px;
+    }
+  }
+}
+
+.show-select {
+  width: auto;
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 1px;
+}
+
+.edit-toggle {
+  .active-text {
+    display: none;
+  }
+
+  &.active {
+    .active-text {
+      display: inherit;
+    }
+
+    .not-active-text {
+      display: none;
+    }
+  }
+}
+
+.breadcrumb {
+  font-size: 2em;
+  padding: 0px 15px;
+  margin: 0px;
+}
+
+
+.show-in-edit-mode{
+  display: none;
+}
+
+.edit-mode {
+  .show-in-edit-mode {
+    display: block;
+  }
+
+  .hide-in-edit-mode {
+    display: none;
+  }
+}
