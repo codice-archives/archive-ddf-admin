@@ -31,7 +31,7 @@
             applicationInfo: '/applications/templates/applicationInfo.handlebars',
             featureTemplate: '/applications/templates/features/features.handlebars',
             featureRowTemplate: '/applications/templates/features/featureRow.handlebars',
-            addApplicationCard: '/applications/templates/addApplicationCard.handlebars',
+            addApplicationCard: '/applications/templates/addAppCard.handlebars',
             applicationDetailLayout:'/applications/templates/application-detail/ApplicationDetail.layout.handlebars'
         }
     });
