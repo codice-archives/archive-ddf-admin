@@ -30,6 +30,9 @@ import javax.management.ObjectName;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.karaf.features.Feature;
+import org.apache.karaf.features.FeaturesService;
+import org.apache.karaf.features.Repository;
+import org.codice.ddf.admin.application.rest.model.FeatureDto;
 import org.codice.ddf.admin.application.service.Application;
 import org.codice.ddf.admin.application.service.ApplicationNode;
 import org.codice.ddf.admin.application.service.ApplicationService;
@@ -73,6 +76,10 @@ public class ApplicationServiceBean implements ApplicationServiceBeanMBean {
     private static final String MAP_DEPENDENCIES = "dependencies";
 
     private static final String MAP_PARENTS = "parents";
+    
+    private static final String MAP_STATUS = "status";
+    
+    private static final String MAP_REPOSITORY = "repository";
 
     private Logger logger = LoggerFactory.getLogger(ApplicationServiceBeanMBean.class);
 
@@ -318,6 +325,34 @@ public class ApplicationServiceBean implements ApplicationServiceBeanMBean {
                         applicationURL, ase);
             }
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllFeatures() {
+        return getFeatureMap(appService.getAllFeatures());
+    }
+
+    @Override
+    public List<Map<String, Object>> findApplicationFeatures(String applicationName) {
+        return getFeatureMap(appService.findApplicationFeatures(applicationName));
+    }
+
+    private List<Map<String, Object>> getFeatureMap(
+            List<FeatureDto> featureViews) {
+        List<Map<String, Object>> features = new ArrayList<Map<String, Object>>();
+        try {
+            for (FeatureDto feature : featureViews) {
+                Map<String, Object> featureMap = new HashMap<String, Object>();
+                featureMap.put(MAP_NAME, feature.getName());
+                featureMap.put(MAP_VERSION, feature.getVersion());
+                featureMap.put(MAP_STATUS, feature.getStatus());
+                featureMap.put(MAP_REPOSITORY, feature.getRepository());
+                features.add(featureMap);
+            }
+        } catch (Exception ex) {
+            logger.warn("getFeatureMap Exception: " + ex.getMessage());
+        }
+        return features;
     }
 
 }

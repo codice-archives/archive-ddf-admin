@@ -18,8 +18,9 @@ define([
     'marionette',
     'icanhaz',
     'js/application',
-    'text!applicationDetailLayout'
-], function(Backbone, Marionette, ich, Application, applicationDetailLayout) {
+    'text!applicationDetailLayout',
+    '/applications/js/controller/Feature.controller.js'
+], function(Backbone, Marionette, ich, Application, applicationDetailLayout, FeatureController) {
     "use strict";
 
     ich.addTemplate('applicationDetailLayout', applicationDetailLayout);
@@ -29,10 +30,17 @@ define([
     var DetailedApplicationLayout = Marionette.Layout.extend({
         template: 'applicationDetailLayout',
         regions: {
-            content: '.content'
+            content: '.content',
+            features: '#features'
+        },
+        initialize: function(options){
+            this.model = options.model;
+            this.appKey = this.model.get('name') + "-" + this.model.get('version');
+            console.log("Current Application: " + this.appKey);
         },
         events: {
-            'click .nav-to-applications': 'navToApplications'
+            'click .nav-to-applications': 'navToApplications',
+            'click #featureTab': 'getFeatures'
         },
         onRender: function(){
             console.log(App.module('Applications'));  // use this object to get reference to module.controllers
@@ -40,6 +48,12 @@ define([
         navToApplications: function(e){
             e.preventDefault();
             App.vent.trigger('navigateTo:applicationHome');
+        },
+        getFeatures: function(){
+            var featureController = new FeatureController({
+                region: this.features
+            });
+            featureController.show(this.appKey);
         }
     });
 
