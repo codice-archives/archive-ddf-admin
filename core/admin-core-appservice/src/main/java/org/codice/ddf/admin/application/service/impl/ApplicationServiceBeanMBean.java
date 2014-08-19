@@ -79,5 +79,15 @@ public interface ApplicationServiceBeanMBean {
      * @return installation profile objects.
      */
     List<Map<String, Object>> getInstallationProfiles();
+    /**
+     * Returns all Features in DDF
+     * @return
+     */
+    List<Map<String, Object>> getAllFeatures();
+    /**
+     * Returns all Features in DDF by Application
+     * @return
+     */
+    List<Map<String, Object>> findApplicationFeatures(String applicationName);
 
 }

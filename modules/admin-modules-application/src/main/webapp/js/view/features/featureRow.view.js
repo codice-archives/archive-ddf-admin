@@ -14,11 +14,12 @@
  **/
 /*global define*/
 define([
+        'jquery',
         'marionette',
         'underscore',
         'text!featureRowTemplate',
         'icanhaz'
-], function(Marionette, _, FeatureRowTemplate, ich){
+], function($,Marionette, _, FeatureRowTemplate, ich){
         "use strict";
 
         if(!ich.featureRowTemplate) {
@@ -26,7 +27,7 @@ define([
         }
 
         var FeatureRow = Marionette.ItemView.extend({
-            template: FeatureRowTemplate,
+            template: 'featureRowTemplate',
             tagName: 'tr',
 
             initialize: function(){
@@ -39,7 +40,10 @@ define([
 
             onSelect: function(event) {
                 event.stopPropagation();
-                this.trigger('selected', this.model);
+                var target = $(event.target).attr("id");
+                if(target !== undefined && target.indexOf('action') !== -1) {
+                    this.trigger('selected', this.model);
+                }
             },
 
             onBeforeClose: function() {

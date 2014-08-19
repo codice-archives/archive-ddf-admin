@@ -16,7 +16,38 @@
     </div>
 
     <div id="application-grid-layout" class="application-scroll scroll-area ps-container white">
-        <div id="apps-grid"></div>
+        <div class="apps-grids">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Installed Applications</div>
+                <div class="panel-body">
+                    <div class="apps-grid-container installed"></div>
+                </div>
+            </div>
+
+            <!--<h4 class="apps-grid-header">-->
+                <!--Installed Applications-->
+            <!--</h4>-->
+            <!--<hr/>-->
+            <!--<div class="apps-grid-container installed"></div>-->
+
+            <div class="show-in-edit-mode">
+
+                <div class="panel panel-warning">
+                    <div class="panel-heading">Not Installed Applications</div>
+                    <div class="panel-body">
+                        <div class="apps-grid-container not-installed"></div>
+                    </div>
+                </div>
+
+                <!--<h4 class="apps-grid-header">-->
+
+                <!--</h4>-->
+                <!--<hr/>-->
+                <!--<div class="apps-grid-container not-installed"></div>-->
+            </div>
+        </div>
     </div>
 
     <div class="application-status">
@@ -24,9 +55,5 @@
 
     <div class="progress">
         <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-
-    <div id="application-view-cancel" class="application-view-cancel">
-        <button type="button" class="btn btn-info cancel" id="viewCancel" data-dismiss="modal">Cancel</button>
     </div>
 </div>
