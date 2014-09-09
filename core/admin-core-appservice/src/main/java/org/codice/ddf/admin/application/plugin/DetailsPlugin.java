@@ -14,11 +14,12 @@
  **/
 package org.codice.ddf.admin.application.plugin;
 
+
 /**
  * Defines a plugin for details.
  *
  */
-public class DetailsPlugin extends AbstractApplicationConfigurationPlugin {
+public class DetailsPlugin extends AbstractApplicationPlugin {
 	
 	/**
 	 * Constructor.

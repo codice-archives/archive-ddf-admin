@@ -12,23 +12,22 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  *
  **/
-package org.codice.ddf.admin.application.plugin;
-
+package org.codice.ddf.admin.module.plugin;
 
 /**
- * Configuration implementation of the ApplicationConfiguratoinPlugin.
+ * Implementation of the abstractmoduleplugin for system information.
  *
  */
-public class ConfigurationPlugin extends AbstractApplicationPlugin {
-	
-	/**
-	 * Constructor.
-	 */
-	public ConfigurationPlugin() {
-		this.displayName = "Configuration";
-		this.iframeLocation = "";
-        this.javascriptLocation = "js/views/application/plugins/config/Plugin.view.js";
-		this.order = 2;
-	}	
+public class SystemInformationModulePlugin extends AbstractModulePlugin {
+    
+    /**
+     * Constructor.
+     */
+    public SystemInformationModulePlugin() {
+        this.displayName = "SystemInfo";
+        this.iframeLocation = "";
+        this.javascriptLocation = "js/views/module/plugins/systeminformation/Plugin.view.js";
+        this.order = 1;
+    }   
 
 }

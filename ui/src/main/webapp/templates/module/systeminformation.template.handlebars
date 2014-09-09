@@ -1,0 +1,59 @@
+<div>
+    <div class="systemInfo">
+        <h3>System Information</h3>
+        <table id="systeminformation-table" class="display compact dataTable no-footer" role="grid">
+            <thead>
+            <tr role="row">
+                <th rowspan="1" colspan="1" style="width: 0px;"></th>
+                <th rowspan="1" colspan="1" style="width: 0px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr role="row" class="odd">
+                    <td>Last Started</td>
+                    <td>{{startTime}}</td>
+                </tr>
+                <tr role="row" class="even">
+                    <td>Uptime</td>
+                    <td>{{uptime}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <h3>Java Information</h3>
+        <table id="javainformation-table" class="display compact dataTable no-footer" role="grid">
+            <thead>
+            <tr role="row">
+                <th rowspan="1" colspan="1" style="width: 0px;"></th>
+                <th rowspan="1" colspan="1"style="width: 0px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr role="row" class="odd">
+                <td>Java Runtime</td>
+                <td>{{runtime}} (build {{runtimeVersion}})</td>
+            </tr>
+            <tr role="row" class="even">
+                <td>Java Virtual Machine</td>
+                <td>{{systemInformation.VmName}} (build {{systemInformation.VmVersion}})</td>
+            </tr>
+            <tr role="row" class="even">
+                <td>Number of Processors</td>
+                <td>{{operatingSystem.AvailableProcessors}}</td>
+            </tr>
+            <tr role="row" class="odd">
+                <td>Total Memory</td>
+                <td>{{operatingSystem.TotalPhysicalMemorySize}}</td>
+            </tr>
+            <tr role="row" class="even">
+                <td>Used Memory</td>
+                <td>{{usedMemory}}</td>
+            </tr>
+            <tr role="row" class="odd">
+                <td>Free Memory</td>
+                <td>{{operatingSystem.FreePhysicalMemorySize}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

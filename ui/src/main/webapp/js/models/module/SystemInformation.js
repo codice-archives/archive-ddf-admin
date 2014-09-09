@@ -12,23 +12,21 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  *
  **/
-package org.codice.ddf.admin.application.plugin;
+/*global define*/
+define([
+    'backbone'
+],function (Backbone) {
 
 
-/**
- * Configuration implementation of the ApplicationConfiguratoinPlugin.
- *
- */
-public class ConfigurationPlugin extends AbstractApplicationPlugin {
-	
-	/**
-	 * Constructor.
-	 */
-	public ConfigurationPlugin() {
-		this.displayName = "Configuration";
-		this.iframeLocation = "";
-        this.javascriptLocation = "js/views/application/plugins/config/Plugin.view.js";
-		this.order = 2;
-	}	
+    var SystemInformation = {};
 
-}
+    SystemInformation.Model = Backbone.Model.extend({
+        url: '/jolokia/read/java.lang:type=Runtime/',
+        parse: function(resp){
+            return resp.value;
+        }
+    });
+
+    return SystemInformation;
+
+});

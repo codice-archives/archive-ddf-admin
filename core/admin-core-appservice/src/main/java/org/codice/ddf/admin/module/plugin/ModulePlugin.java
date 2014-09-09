@@ -12,7 +12,7 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  *
  **/
-package org.codice.ddf.admin.application.plugin;
+package org.codice.ddf.admin.module.plugin;
 
 import java.net.URI;
 import java.util.List;
@@ -20,16 +20,16 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Defines an application configuration plugin. 
+ * Defines an module plugin. 
  *
  */
-public interface ApplicationConfigurationPlugin {
-	/** key to mark that a plugin should be used for ALL applications.*/
-	public static final String ALL_APPLICATION_KEY = "ALL";
+public interface ModulePlugin {
+	/** key to mark that a plugin should be used for ALL modules.*/
+	public static final String ALL_ASSOCATION_KEY = "ALL";
 	/** key for the display name. Used for creating json.*/
 	public static final String DISPLAY_NAME_KEY = "displayName";
-	/** key for the application name. Used for creating json.*/
-	public static final String APPLICATION_ASSOCIATION_KEY = "applicationAssociation";
+	/** key for the module name. Used for creating json.*/
+	public static final String MODULE_ASSOCATION_KEY = "moduleAssociation";
 	/** key for the iframe location. Used for creating json.*/
 	public static final String IFRAME_LOCATION_KEY = "iframeLocation";
 	/** key for the javascript location. Used for creating json.*/
@@ -40,10 +40,10 @@ public interface ApplicationConfigurationPlugin {
 	public static final String ORDER_KEY = "order";
 	
 	/**
-	 * Returns a list of applications that this plugin should be associated with.
-	 * @return a list of applications that this plugin should be associated with.
+	 * Returns a list of modules that this plugin should be associated with.
+	 * @return a list of modules that this plugin should be associated with.
 	 */
-	public List<String> getAssociatedApplications();
+	public List<String> getAssocations();
 	
 	/**
 	 * Returns the display name. This is the value that will be display to the user.
@@ -90,27 +90,27 @@ public interface ApplicationConfigurationPlugin {
      * @param appName - the name of the application we are going to test.
      * @return yes if the application matches, or should be applied to all applications, false if it doesn't.
      */
-    public boolean matchesApplicationName(String appName);
-    
+    public boolean matchesAssocationName(String assocationName);
+        
     /**
-     * Sets the application assocations to the inputted values. This will overwrite all previous
+     * Sets the modules assocations to the inputted values. This will overwrite all previous
      * values.
      * @param appName - the string name of an application.
      */
-    public void setApplicationAssociations(List<String> applicationAssociations);
+    public void setAssociations(List<String> assocations);
     
     /**
-     * Adds an application assocation list to the existing list. This does not overwrite the
+     * Adds an modules assocation list to the existing list. This does not overwrite the
      * previous values, and if there is an existing value it wont add it.
-     * @param applicationAssociations
+     * @param assocations - the assocations to add.
      */
-    public void addApplicationAssocations(List<String> applicationAssociations);
+    public void addAssocations(List<String> assocations);
     
     /**
-     * Adds a single application association to this plugin. If the application is already
+     * Adds a single module association to this plugin. If the application is already
      * there, then nothing will happen.
-     * @param applicationAssocation - the string name of the application.
+     * @param assocations - the string name of the module.
      */
-    public void addApplicationAssociations(String applicationAssocation);
+    public void addAssociations(String assocations);
 
 }

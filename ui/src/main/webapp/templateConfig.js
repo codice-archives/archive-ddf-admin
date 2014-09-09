@@ -49,6 +49,11 @@
             //applicationNew: '/templates/application/applicationNew.handlebars',
             //mvnItemTemplate: '/templates/application/mvnUrlItem.handlebars',
             //fileProgress: '/templates/application/fileProgress.handlebars'
+
+            //module
+            moduleDetailLayout: 'templates/module/ModuleDetail.layout.handlebars',
+            systemInformationTemplate: 'templates/module/systeminformation.template.handlebars',
+            systemInformationItemTemplate: 'templates/module/systeminformation.item.template.handlebars'
         }
     });
 }());
