@@ -27,9 +27,6 @@ define([
 
         initialize: function(options){
             this.regions = options.regions;
-            //TODO: we need to pass this in.
-            this.name = 'test';
-            //this.name = options.moduleName;
         },
         show: function() {
             var layoutView = new ModuleDetailLayout();

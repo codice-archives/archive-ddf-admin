@@ -16,9 +16,9 @@
 define([
         'marionette',
         'underscore',
-        'js/views/configuration/ConfigurationEdit.view', //TODO this import should be done better.
+        'js/views/configuration/ConfigurationEdit.view',
         'js/models/Service',
-        'js/views/configuration/Service.view' // TODO this import should be done better.
+        'js/views/configuration/Service.view'
     ], function(Marionette, _, ConfigurationView, ConfigurationModel, ServiceView){
         "use strict";
 

@@ -508,12 +508,18 @@ public class ApplicationServiceBean implements ApplicationServiceBeanMBean {
 		this.applicationPlugins = applicationPlugins;
 	}
 	
-	//FIXME: put in stuff.
+	/**
+	 * Getter method for the module plugins.
+	 * @return a list of module plugins.
+	 */
 	public List<ModulePlugin> getModulePlugins() {
 	    return this.modulePlugins;
 	}
 	
-	//FIXME: put in stuff.
+	/**
+	 * Setter method for the module plugins.
+	 * @param modulePlugins - what we are going to set the moduleplugins to.
+	 */
 	public void setModulePlugins(List<ModulePlugin> modulePlugins) {
 	    this.modulePlugins = modulePlugins;
 	}
