@@ -29,9 +29,9 @@ public class AbstractModulePlugin implements ModulePlugin {
 	/** the display name. Protected so implementers can set this.*/
 	protected String displayName = null;
 	/** the location of the iframe. Protected so implementers can set this.*/
-	protected String iframeLocation = null;
+	protected URI iframeLocation = null;
 	/** the location of the javascript. Protected so implements can set this.*/
-	protected String javascriptLocation = null;
+	protected URI javascriptLocation = null;
 	/** The id of this plugin.*/
 	private UUID id = UUID.randomUUID();
 	/** the association names. Protected so implementers can set this.*/
@@ -60,20 +60,20 @@ public class AbstractModulePlugin implements ModulePlugin {
 	
 	/** {@inheritDoc}.*/
 	@Override
-	public URI getJavascriptLocation() {
+	public String getJavascriptLocation() {
 		if (this.javascriptLocation == null) {
 			return null;
 		}
-		return URI.create(this.javascriptLocation);
+		return this.javascriptLocation.toString();
 	}
 
 	/** {@inheritDoc}.*/
 	@Override
-	public URI getIframeLocation() {
+	public String getIframeLocation() {
 		if (this.iframeLocation == null) {
 			return null;
 		}
-		return URI.create(this.iframeLocation);
+		return this.iframeLocation.toString();
 	}
 	
 	/** {@inheritDoc}.*/
@@ -90,8 +90,8 @@ public class AbstractModulePlugin implements ModulePlugin {
 		jsonMapping.put(ModulePlugin.MODULE_ASSOCATION_KEY, this.assocations);
 		jsonMapping.put(ModulePlugin.ID_KEY, this.id.toString());
 		jsonMapping.put(ModulePlugin.DISPLAY_NAME_KEY, this.displayName);
-		jsonMapping.put(ModulePlugin.IFRAME_LOCATION_KEY, this.iframeLocation);
-		jsonMapping.put(ModulePlugin.JAVASCRIPT_LOCATION_KEY, this.javascriptLocation);
+		jsonMapping.put(ModulePlugin.IFRAME_LOCATION_KEY, (this.iframeLocation == null) ? null : this.iframeLocation.toString());
+		jsonMapping.put(ModulePlugin.JAVASCRIPT_LOCATION_KEY, (this.javascriptLocation == null) ? null : this.javascriptLocation.toString());
 		jsonMapping.put(ModulePlugin.ORDER_KEY, this.order);
 		
 		return jsonMapping;

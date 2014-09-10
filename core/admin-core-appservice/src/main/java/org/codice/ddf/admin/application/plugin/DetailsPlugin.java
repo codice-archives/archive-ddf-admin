@@ -14,6 +14,8 @@
  **/
 package org.codice.ddf.admin.application.plugin;
 
+import java.net.URI;
+
 
 /**
  * Defines a plugin for details.
@@ -26,7 +28,7 @@ public class DetailsPlugin extends AbstractApplicationPlugin {
 	 */
 	public DetailsPlugin() {
 		this.displayName = "Details";
-        this.javascriptLocation = "js/views/application/plugins/details/Plugin.view.js";
+        this.javascriptLocation = URI.create("js/views/application/plugins/details/Plugin.view.js");
 		this.order = 0;
 	}
 

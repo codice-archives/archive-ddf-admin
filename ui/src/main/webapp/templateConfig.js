@@ -16,8 +16,6 @@
     requirejs.config({
 
         paths: {
-
-
             // application module template
             applicationModuleTemplate: 'templates/application/applicationWrapper.handlebars',
             applicationTemplate: 'templates/application/application.handlebars',
@@ -43,12 +41,6 @@
 
             // installer module templates
             applicationWrapperTemplate: 'templates/installer/application.handlebars',
-            //applicationTemplate: '/templates/application/application.handlebars',
-            //applicationNodeTemplate: '/templates/application/applicationNode.handlebars',
-            //detailsTemplate: '/templates/application/details.handlebars',
-            //applicationNew: '/templates/application/applicationNew.handlebars',
-            //mvnItemTemplate: '/templates/application/mvnUrlItem.handlebars',
-            //fileProgress: '/templates/application/fileProgress.handlebars'
 
             //module
             moduleDetailLayout: 'templates/module/ModuleDetail.layout.handlebars',

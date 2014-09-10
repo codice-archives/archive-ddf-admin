@@ -14,6 +14,8 @@
  **/
 package org.codice.ddf.admin.module.plugin;
 
+import java.net.URI;
+
 /**
  * Implmentation of the abstractmoduleplugin for configuration.
  *
@@ -25,8 +27,7 @@ public class ConfigurationModulePlugin extends AbstractModulePlugin {
      */
     public ConfigurationModulePlugin() {
         this.displayName = "Configuration";
-        this.iframeLocation = "";
-        this.javascriptLocation = "js/views/module/plugins/configuration/Plugin.view.js";
+        this.javascriptLocation = URI.create("js/views/module/plugins/configuration/Plugin.view.js");
         this.order = 2;
     }   
 

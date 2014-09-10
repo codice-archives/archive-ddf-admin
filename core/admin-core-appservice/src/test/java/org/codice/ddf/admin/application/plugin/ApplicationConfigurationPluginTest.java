@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class ApplicationConfigurationPluginTest {
 		 */
 		public TestPlugin() {
 			this.displayName = DISPLAY_NAME_TEST;
-			this.iframeLocation = IFRAME_LOCATION_TEST;
+			this.iframeLocation = URI.create(IFRAME_LOCATION_TEST);
 			this.order = ORDER_TEST;
 			setAssociations(ORIGINAL_APP_ASSOCIATIONS);
 		}
@@ -84,7 +85,7 @@ public class ApplicationConfigurationPluginTest {
 		Map<String, Object> constructedJSON = new HashMap<String, Object>();
 		constructedJSON.put(ApplicationPlugin.DISPLAY_NAME_KEY, plugin.getDisplayName());
 		constructedJSON.put(ApplicationPlugin.ID_KEY, plugin.getID().toString());
-		constructedJSON.put(ApplicationPlugin.IFRAME_LOCATION_KEY, plugin.getIframeLocation().toString());
+		constructedJSON.put(ApplicationPlugin.IFRAME_LOCATION_KEY, plugin.getIframeLocation());
 		constructedJSON.put(ApplicationPlugin.JAVASCRIPT_LOCATION_KEY, plugin.getJavascriptLocation());
 		constructedJSON.put(ApplicationPlugin.APPLICATION_ASSOCIATION_KEY, plugin.getAssocations());
 		constructedJSON.put(ApplicationPlugin.ORDER_KEY, plugin.getOrder());

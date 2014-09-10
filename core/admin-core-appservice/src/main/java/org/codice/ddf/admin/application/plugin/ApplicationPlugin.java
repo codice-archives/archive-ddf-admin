@@ -14,7 +14,6 @@
  **/
 package org.codice.ddf.admin.application.plugin;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -62,13 +61,13 @@ public interface ApplicationPlugin {
 	 * Returns the location of the javascript. Can be null.
 	 * @return the location of the javascript.
 	 */
-	public URI getJavascriptLocation();
+	public String getJavascriptLocation();
 	
 	/**
 	 * Returns the iframe location. Can be null.
 	 * @return the iframe location.
 	 */
-    public URI getIframeLocation();
+    public String getIframeLocation();
     
     /**
      * Returns the prefered order. This value can be duplicated between plugins, at which

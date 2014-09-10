@@ -14,6 +14,8 @@
  **/
 package org.codice.ddf.admin.module.plugin;
 
+import java.net.URI;
+
 /**
  * Implementation of the abstractmoduleplugin for system information.
  *
@@ -25,8 +27,7 @@ public class SystemInformationModulePlugin extends AbstractModulePlugin {
      */
     public SystemInformationModulePlugin() {
         this.displayName = "SystemInfo";
-        this.iframeLocation = "";
-        this.javascriptLocation = "js/views/module/plugins/systeminformation/Plugin.view.js";
+        this.javascriptLocation = URI.create("js/views/module/plugins/systeminformation/Plugin.view.js");
         this.order = 1;
     }   
 

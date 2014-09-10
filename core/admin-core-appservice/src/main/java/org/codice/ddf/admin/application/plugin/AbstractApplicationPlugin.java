@@ -29,9 +29,9 @@ public class AbstractApplicationPlugin implements ApplicationPlugin {
 	/** the display name. Protected so implementers can set this.*/
 	protected String displayName = null;
 	/** the location of the iframe. Protected so implementers can set this.*/
-	protected String iframeLocation = null;
+	protected URI iframeLocation = null;
 	/** the location of the javascript. Protected so implements can set this.*/
-	protected String javascriptLocation = null;
+	protected URI javascriptLocation = null;
 	/** The id of this plugin.*/
 	private UUID id = UUID.randomUUID();
 	/** the application name. Protected so implementers can set this.*/
@@ -60,20 +60,20 @@ public class AbstractApplicationPlugin implements ApplicationPlugin {
 	
 	/** {@inheritDoc}.*/
 	@Override
-	public URI getJavascriptLocation() {
+	public String getJavascriptLocation() {
 		if (this.javascriptLocation == null) {
 			return null;
 		}
-		return URI.create(this.javascriptLocation);
+		return this.javascriptLocation.toString();
 	}
 
 	/** {@inheritDoc}.*/
 	@Override
-	public URI getIframeLocation() {
+	public String getIframeLocation() {
 		if (this.iframeLocation == null) {
 			return null;
 		}
-		return URI.create(this.iframeLocation);
+		return this.iframeLocation.toString();
 	}
 	
 	/** {@inheritDoc}.*/
@@ -90,8 +90,8 @@ public class AbstractApplicationPlugin implements ApplicationPlugin {
 		jsonMapping.put(ApplicationPlugin.APPLICATION_ASSOCIATION_KEY, this.assocations);
 		jsonMapping.put(ApplicationPlugin.ID_KEY, this.id.toString());
 		jsonMapping.put(ApplicationPlugin.DISPLAY_NAME_KEY, this.displayName);
-		jsonMapping.put(ApplicationPlugin.IFRAME_LOCATION_KEY, this.iframeLocation);
-		jsonMapping.put(ApplicationPlugin.JAVASCRIPT_LOCATION_KEY, this.javascriptLocation);
+		jsonMapping.put(ApplicationPlugin.IFRAME_LOCATION_KEY, (this.iframeLocation == null) ? null : this.iframeLocation.toString());
+		jsonMapping.put(ApplicationPlugin.JAVASCRIPT_LOCATION_KEY, (this.javascriptLocation == null) ? null : this.javascriptLocation.toString());
 		jsonMapping.put(ApplicationPlugin.ORDER_KEY, this.order);
 		
 		return jsonMapping;

@@ -19,10 +19,11 @@ define([
         'jquery',
         'moment',
         'text!systemInformationTemplate',
+        'js/util/TimeUtil',
         'icanhaz',
         'datatables'
     ],
-    function(Marionette, _, $, moment, SystemInformationTemplate, ich){
+    function(Marionette, _, $, moment, SystemInformationTemplate, TimeUtil, ich){
         'use strict';
 
         if(!ich.systemInformationTemplate) {
@@ -36,7 +37,7 @@ define([
             serializeData: function() {
                 var systemData = this.options.systemInformation.toJSON();
                 var operatingSystemData = this.options.operatingSystem.toJSON();
-                var uptime = this.getTimeDifference(systemData.Uptime);
+                var uptime = TimeUtil.convertUptimeToString(systemData.Uptime);
                 var usedMemory =  operatingSystemData.TotalPhysicalMemorySize - operatingSystemData.FreePhysicalMemorySize;
                 var startTime = moment(systemData.StartTime).toDate();
 
@@ -51,66 +52,7 @@ define([
                 };
                 console.log(returnValue);
                 return returnValue;
-            },
-
-            /**
-             * Solution taken from stackoverflow. Link included.
-             * http://stackoverflow.com/questions/1787939/check-time-difference-in-javascript
-             * @param nTotalDiff
-             * @returns {string}
-             */
-            getTimeDifference: function(nTotalDiff) {
-
-            var oDiff = {};
-
-            oDiff.days = Math.floor(nTotalDiff / 1000 / 60 / 60 / 24);
-            nTotalDiff -= oDiff.days * 1000 * 60 * 60 * 24;
-
-            oDiff.hours = Math.floor(nTotalDiff / 1000 / 60 / 60);
-            nTotalDiff -= oDiff.hours * 1000 * 60 * 60;
-
-            oDiff.minutes = Math.floor(nTotalDiff / 1000 / 60);
-            nTotalDiff -= oDiff.minutes * 1000 * 60;
-
-            oDiff.seconds = Math.floor(nTotalDiff / 1000);
-            //  -------------------------------------------------------------------  //
-
-            //  Format Duration
-            //  -------------------------------------------------------------------  //
-            //  Format Hours
-            var hourtext = '00';
-            if (oDiff.days > 0){
-                hourtext = String(oDiff.days);
             }
-            if (hourtext.length === 1) {
-                hourtext = '0' + hourtext;
-            }
-
-            //  Format Minutes
-            var mintext = '00';
-            if (oDiff.minutes > 0){
-                mintext = String(oDiff.minutes);
-            }
-            if (mintext.length === 1) {
-                mintext = '0' + mintext;
-            }
-
-            //  Format Seconds
-            var sectext = '00';
-            if (oDiff.seconds > 0) {
-                sectext = String(oDiff.seconds);
-            }
-            if (sectext.length === 1) {
-                sectext = '0' + sectext;
-            }
-
-            //  Set Duration
-            var sDuration = hourtext + ':' + mintext + ':' + sectext;
-            //  -------------------------------------------------------------------  //
-
-            return sDuration;
-        }
-
         });
 
         return FeaturesView;

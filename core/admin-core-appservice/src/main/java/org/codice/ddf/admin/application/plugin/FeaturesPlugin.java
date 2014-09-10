@@ -14,6 +14,8 @@
  **/
 package org.codice.ddf.admin.application.plugin;
 
+import java.net.URI;
+
 
 /**
  * Features implementation of the ApplicationConfigurationPlugin.
@@ -26,8 +28,7 @@ public class FeaturesPlugin extends AbstractApplicationPlugin {
 	 */
 	public FeaturesPlugin() {
 		this.displayName = "Features";
-		this.iframeLocation = "";
-        this.javascriptLocation = "js/views/application/plugins/features/Plugin.view.js";
+        this.javascriptLocation = URI.create("js/views/application/plugins/features/Plugin.view.js");
 		this.order = 1;
 	}
 }
