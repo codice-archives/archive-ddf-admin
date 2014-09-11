@@ -38,8 +38,14 @@
             pluginTabContentCollectionView:'templates/application/application-detail/PluginTabContent.collection.view.handlebars',
             iframeView:'templates/application/iframeView.handlebars',
 
+
             // installer module templates
             applicationWrapperTemplate: 'templates/installer/application.handlebars',
+
+            //module
+            moduleDetailLayout: 'templates/module/ModuleDetail.layout.handlebars',
+            systemInformationTemplate: 'templates/module/systeminformation.template.handlebars',
+            systemInformationItemTemplate: 'templates/module/systeminformation.item.template.handlebars'
         }
     });
 }());
