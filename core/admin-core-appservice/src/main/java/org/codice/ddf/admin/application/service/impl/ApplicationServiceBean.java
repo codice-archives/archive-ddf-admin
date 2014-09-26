@@ -32,6 +32,7 @@ import javax.management.ObjectName;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.karaf.features.BundleInfo;
+import org.apache.karaf.features.Dependency;
 import org.apache.karaf.features.Feature;
 import org.codice.ddf.admin.application.plugin.ApplicationPlugin;
 import org.codice.ddf.admin.application.rest.model.FeatureDetails;
@@ -197,8 +198,8 @@ public class ApplicationServiceBean implements ApplicationServiceBeanMBean {
             profileMap.put(INSTALL_PROFILE_DESCRIPTION, profile.getDescription());
 
             List<String> includedFeatures = new ArrayList<String>();
-            for (Feature feature : profile.getDependencies()) {
-                includedFeatures.add(feature.getName());
+            for (Dependency dependency : profile.getDependencies()) {
+                includedFeatures.add(dependency.getName());
             }
             profileMap.put(INSTALL_PROFILE_DEFAULT_APPLICATIONS, includedFeatures);
 
@@ -494,7 +495,7 @@ public class ApplicationServiceBean implements ApplicationServiceBeanMBean {
 
 	/**
 	 * Setter method for the plugin list.
-	 * @param pluginList the plugin list.
+	 * @param applicationPlugins the plugin list.
 	 */
 	public void setApplicationPlugins(List<ApplicationPlugin> applicationPlugins) {
 		this.applicationPlugins = applicationPlugins;
@@ -527,9 +528,7 @@ public class ApplicationServiceBean implements ApplicationServiceBeanMBean {
     /**
      * Gets the service with the specified class name. Will create a new {@link ServiceTracker} if
      * the service is not already retrieved.
-     * 
-     * @param serviceName
-     *            the service name to obtain
+     *
      * @return the service or <code>null</code> if missing.
      */
     final MetaTypeService getMetaTypeService() {

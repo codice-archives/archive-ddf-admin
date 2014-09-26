@@ -32,6 +32,7 @@ import java.util.Set;
 import org.apache.karaf.bundle.core.BundleState;
 import org.apache.karaf.bundle.core.BundleStateService;
 import org.apache.karaf.features.BundleInfo;
+import org.apache.karaf.features.Dependency;
 import org.apache.karaf.features.Feature;
 import org.apache.karaf.features.FeaturesService;
 import org.apache.karaf.features.Repository;
@@ -222,8 +223,7 @@ public class ApplicationServiceImplTest {
         when(bundleContext.getService(mockFeatureRef)).thenReturn(featuresService);
 
         ApplicationService appService = new ApplicationServiceImpl(
-
-        bundleContext, bundleStateServices);
+                bundleContext, bundleStateServices);
 
         assertEquals("More than one application was returned from mainFeatureRepo", 1, appService
                 .getApplications().size());
@@ -939,6 +939,8 @@ public class ApplicationServiceImplTest {
     @Test
     public void testInstallProfileFeatures() throws Exception {
         Repository mainFeaturesRepo2 = createRepo(TEST_INSTALL_PROFILE_FILE_NAME);
+        boolean profile1Found = false;
+        boolean profile2Found = false;
 
         Set<Repository> activeRepos = new HashSet<Repository>(Arrays.asList(mainFeatureRepo,
                 mainFeaturesRepo2, noMainFeatureRepo1));
@@ -952,8 +954,7 @@ public class ApplicationServiceImplTest {
 
         assertNotNull(profiles);
         assertEquals(2, profiles.size());
-        
-        assertEquals("profile-test1", profiles.get(0).getName());
+
         // loop through since they can be returned in any order.
         for (Feature profile : profiles) {
             if ("profile-test1".equals(profile.getName())) {
@@ -961,31 +962,34 @@ public class ApplicationServiceImplTest {
                 List<String> featureNames = getFeatureNames(profile.getDependencies());
         		assertEquals(1, featureNames.size());
         		assertTrue(featureNames.contains("main-feature"));
+                profile1Found = true;
             } else if ("profile-test2".equals(profile.getName())) {
         		assertEquals("Desc2", profile.getDescription());
                 List<String> featureNames = getFeatureNames(profile.getDependencies());
         		assertEquals(2, featureNames.size());
         		assertTrue(featureNames.contains("main-feature"));
         		assertTrue(featureNames.contains("main-feature2"));
-        		
+        		profile2Found = true;
         	} else {
         		fail("feature should not be a install-profile feature.  FeatureName:" + profile.getName());
         	}
         }
+        assertTrue("Did not find both profiles in the feature list.", profile1Found && profile2Found);
     }
     
     /**
      * Builds a list containing the feature names of all features.
-     * @param features features to loop through.
+     * @param dependencies features to loop through.
      * @return list containing the feature names.
      */
-    private List<String> getFeatureNames(List<Feature> features){
-    	List<String> featureNames = new ArrayList<String>();
-    	for(Feature feature : features){
-    		featureNames.add(feature.getName());
+    private List<String> getFeatureNames(List<Dependency> dependencies){
+    	List<String> dependencyNames = new ArrayList<String>();
+    	for(Dependency feature : dependencies){
+            dependencyNames.add(feature.getName());
     	}
-    	return featureNames;
+    	return dependencyNames;
     }
+
 
     /**
      * Returns an {@code ApplicationService} that contains one bundle in the
@@ -1251,10 +1255,10 @@ public class ApplicationServiceImplTest {
 
                     logger.trace("Dependencies: ");
 
-                    for (Feature depFeature : feature.getDependencies()) {
-                        logger.trace("Dependency Feature: " + depFeature);
-                        logger.trace("Dependency Feature name/version: " + depFeature.getName()
-                                + "/" + depFeature.getVersion());
+                    for (Dependency dependency : feature.getDependencies()) {
+                        logger.trace("Dependency Feature: " + dependency);
+                        logger.trace("Dependency Feature name/version: " + dependency.getName()
+                                + "/" + dependency.getVersion());
                     }
                 }
             }

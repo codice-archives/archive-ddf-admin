@@ -71,7 +71,7 @@ public class ApplicationImpl implements Application, Comparable<Application> {
         }
         List<Feature> autoFeatures = new ArrayList<Feature>();
         for (Feature curFeature : features) {
-            if (curFeature.getInstall().equalsIgnoreCase(Feature.DEFAULT_INSTALL_MODE)) {
+            if (Feature.DEFAULT_INSTALL_MODE.equalsIgnoreCase(curFeature.getInstall())) {
                 autoFeatures.add(curFeature);
             }
         }

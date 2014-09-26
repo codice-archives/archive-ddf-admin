@@ -30,6 +30,7 @@ import java.util.TreeSet;
 import org.apache.karaf.bundle.core.BundleState;
 import org.apache.karaf.bundle.core.BundleStateService;
 import org.apache.karaf.features.BundleInfo;
+import org.apache.karaf.features.Dependency;
 import org.apache.karaf.features.Feature;
 import org.apache.karaf.features.FeaturesService;
 import org.apache.karaf.features.Repository;
@@ -82,9 +83,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     /**
      * Creates a new instance of Application Service.
-     * 
-     * @param featureService
-     *            The internal features service exposed by Karaf.
+     *
      * @param context
      *            BundleContext for this bundle.
      * @param bundleStateServices
@@ -159,7 +158,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         try {
             Set<Feature> features = application.getFeatures();
             for (Feature curFeature : features) {
-                if (curFeature.getInstall().equals(Feature.DEFAULT_INSTALL_MODE)) {
+                if (Feature.DEFAULT_INSTALL_MODE.equals(curFeature.getInstall())) {
                     requiredFeatures.addAll(getAllDependencyFeatures(curFeature));
                 }
             }
@@ -271,13 +270,13 @@ public class ApplicationServiceImpl implements ApplicationService {
                 }
 
                 // eliminate duplications with a set
-                Set<Feature> dependencies = new HashSet<Feature>(mainFeature.getDependencies());
+                Set<Dependency> dependencies = new HashSet<Dependency>(mainFeature.getDependencies());
                 // remove any features that are local to the application
                 dependencies.removeAll(curAppNode.getKey().getFeatures());
                 // loop through all of the features that are left to determine
                 // where they are from
                 Set<Application> depAppSet = new HashSet<Application>();
-                for (Feature curDepFeature : dependencies) {
+                for (Dependency curDepFeature : dependencies) {
                     Application dependencyApp = findFeature(
                             featuresService.getFeature(curDepFeature.getName()), filteredApplications);
                     if (dependencyApp != null) {
@@ -434,26 +433,42 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     /**
      * Retrieves all of the dependencies for a given feature.
-     * 
+     *
      * @param feature
      *            Feature to look for dependencies on.
      * @return A set of all features that are dependencies
      */
     private Set<Feature> getAllDependencyFeatures(Feature feature) throws Exception {
         Set<Feature> tmpList = new HashSet<Feature>();
-        // get accurate feature reference from service - workaround for
+
+        for(Dependency curDependency : feature.getDependencies()) {
+            tmpList.addAll(getAllDependencyFeatures(curDependency));
+        }
+
+        tmpList.add(feature);
+
+        return tmpList;
+    }
+
+    /**
+     * Retrieves all of the dependencies for a given dependency.
+     * 
+     * @param dependency
+     *            Feature to look for dependencies on.
+     * @return A set of all features that are dependencies
+     */
+    private Set<Feature> getAllDependencyFeatures(Dependency dependency) throws Exception {
+        Set<Feature> tmpList = new HashSet<Feature>();
+        // get accurate dependency reference from service - workaround for
         // KARAF-2896 'RepositoryImpl load method incorrectly populates
         // "features" list'
-        Feature curFeature = featuresService.getFeature(feature.getName(), feature.getVersion());
+        Feature curDependency = featuresService.getFeature(dependency.getName(), dependency.getVersion());
 
-        if (curFeature != null) {
-            for (Feature dependencyFeature : curFeature.getDependencies()) {
+        if (curDependency != null) {
+            for (Dependency dependencyFeature : curDependency.getDependencies()) {
                 tmpList.addAll(getAllDependencyFeatures(dependencyFeature));
             }
-            tmpList.add(curFeature);
-        } else {
-            // feature may not be installed
-            tmpList.add(feature);
+            tmpList.add(curDependency);
         }
         return tmpList;
     }
