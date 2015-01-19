@@ -31,7 +31,8 @@ define([
     // the applications module
     var disableList = [
         'platform-app',
-        'admin-app'
+        'admin-app',
+        'security-services-app'
     ];
 
     // Itemview for each individual application
