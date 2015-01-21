@@ -184,6 +184,11 @@ public class ApplicationServiceImpl implements ApplicationService {
             installState = ApplicationState.UNKNOWN;
         }
 
+        // temporary change until proper ACTIVE/INACTIVE status has been recoded
+        if (application.getName().equals("security-services-app")) {
+            installState = ApplicationState.ACTIVE;
+        }
+
         return new ApplicationStatusImpl(application, installState, uninstalledFeatures,
                 errorBundles);
     }
