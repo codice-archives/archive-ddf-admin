@@ -19,7 +19,7 @@
     <parent>
         <groupId>ddf.admin</groupId>
         <artifactId>admin</artifactId>
-        <version>1.3.0-SNAPSHOT</version>
+        <version>1.2.0</version>
     </parent>
 
     <artifactId>docs</artifactId>
@@ -49,6 +49,23 @@
             <plugin>
                 <groupId>com.github.sixro</groupId>
                 <artifactId>confluence-maven-plugin</artifactId>
+                <version>1.0.3</version>
+                <executions>
+                    <execution>
+                        <id>generate-and-deploy</id>
+                        <goals>
+                            <goal>generate</goal>
+                            <goal>deploy</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <serverId>ddf-confluence</serverId>
+                            <endpoint>http://tools.codice.org/wiki</endpoint>
+                            <spaceKey>DDFTEM</spaceKey>
+                            <parentTitle>Home</parentTitle>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

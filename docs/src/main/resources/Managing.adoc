@@ -156,10 +156,6 @@ Installation Profile Page
 
 image::installation_profile.png[Installation Profile,${image.width}]
 
-Select Applications Page
-
-image::select_applications.png[Select Applications,${image.width}]
-
 [WARNING]
 ====
 Platform App, Admin App, and Security Services App CANNOT be selected or unselected as it is installed by default and can cause errors if removed.
