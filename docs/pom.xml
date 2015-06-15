@@ -19,7 +19,7 @@
     <parent>
         <groupId>ddf.admin</groupId>
         <artifactId>admin</artifactId>
-        <version>1.2.0</version>
+        <version>1.3.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>docs</artifactId>
@@ -52,17 +52,18 @@
                 <version>1.0.3</version>
                 <executions>
                     <execution>
-                        <id>generate-and-deploy</id>
+                        <id>confluence-upload</id>
                         <goals>
                             <goal>generate</goal>
                             <goal>deploy</goal>
                         </goals>
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <configuration>
                             <serverId>ddf-confluence</serverId>
                             <endpoint>http://tools.codice.org/wiki</endpoint>
+                            <!-- The wiki space docs will be uploaded too. Change this property on major releases -->
                             <spaceKey>DDFTEM</spaceKey>
-                            <parentTitle>Home</parentTitle>
+                            <parentTitle>Admin Home</parentTitle>
                         </configuration>
                     </execution>
                 </executions>
