@@ -34,6 +34,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codice.ddf.ui.admin.api.module.AdminModule;
 import org.codice.ddf.ui.admin.api.plugin.ConfigurationAdminPlugin;
+import org.json.simple.JSONArray;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.service.cm.Configuration;
 import org.slf4j.LoggerFactory;
@@ -417,7 +418,10 @@ public class ConfigurationAdmin implements ConfigurationAdminMBean {
         // sanity check to make sure no values are
         // null
         for (Entry<String, Object> curEntry : configurationTable.entrySet()) {
-            if (curEntry.getValue() == null) {
+            Object value = curEntry.getValue();
+            if (value instanceof JSONArray && ((JSONArray)value).size() == 0) {
+                curEntry.setValue("");
+            } else if (value == null) {
                 curEntry.setValue("");
             }
         }
