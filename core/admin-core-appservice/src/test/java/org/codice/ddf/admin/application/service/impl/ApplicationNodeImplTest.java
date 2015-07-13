@@ -21,6 +21,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.codice.ddf.admin.application.service.Application;
+import org.codice.ddf.admin.application.service.ApplicationNode;
+import org.codice.ddf.admin.application.service.ApplicationStatus;
 import org.junit.Test;
 
 /**
@@ -72,6 +74,29 @@ public class ApplicationNodeImplTest {
 
         assertNotNull(testChildNode.getParent());
         assertEquals(testNode, testChildNode.getParent());
+
+    }
+
+    /**
+     * Tests the getStatus() method to make sure it returns the correct
+     * value(s) after initialization, and after a new status has been
+     * set via setStatus()
+     */
+    @Test
+    public void testStatus() {
+        Application testApp = mock(Application.class);
+        when(testApp.getName()).thenReturn(APP_NAME);
+        when(testApp.getVersion()).thenReturn(APP_VERSION);
+        when(testApp.getDescription()).thenReturn(APP_DESCRIPTION);
+
+        ApplicationStatusImpl testStatus = mock(ApplicationStatusImpl.class);
+        ApplicationStatusImpl testStatus2 = mock(ApplicationStatusImpl.class);
+
+        ApplicationNodeImpl testNode = new ApplicationNodeImpl(testApp, testStatus);
+        assertEquals(testStatus, testNode.getStatus());
+
+        testNode.setStatus(testStatus2);
+        assertEquals(testStatus2, testNode.getStatus());
 
     }
 
