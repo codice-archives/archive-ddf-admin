@@ -164,7 +164,7 @@ public class ApplicationImplTest {
     }
 
     /**
-     * Tests that applications can be compared to each other for equality.
+     * Tests the {@link ApplicationImpl#getURI()} method
      *
      * @throws Exception
      */
@@ -175,6 +175,22 @@ public class ApplicationImplTest {
         repo1.load();
         Application testApp1 = new ApplicationImpl(repo1);
         assertEquals(testURI, testApp1.getURI());
+    }
+
+    /**
+     * Tests the {@link ApplicationImpl#getDescription()} method
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testGetDescription() throws Exception {
+        RepositoryImpl repo = new RepositoryImpl(
+                getClass().getClassLoader().getResource("test-features-with-main-feature.xml")
+                        .toURI());
+        repo.load();
+
+        Application testApp = new ApplicationImpl(repo);
+        assertEquals(testApp.getDescription(), "Main Feature Test");
     }
 
 }

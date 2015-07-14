@@ -100,4 +100,32 @@ public class ApplicationNodeImplTest {
 
     }
 
+    /**
+     * Tests the {@link ApplicationNodeImpl#ApplicationNodeImpl(Application)} constructor
+     * for the case where the application exists
+     */
+    @Test
+    public void testApplicationNodeImplConstructorAppParam() {
+        Application testApp = mock(Application.class);
+
+        ApplicationNode testNode = new ApplicationNodeImpl(testApp);
+
+        assertEquals(testApp, testNode.getApplication());
+    }
+
+    /**
+     * Tests the {@link ApplicationNodeImpl#ApplicationNodeImpl(Application)} constructor
+     * for the case where the application is null
+     */
+    @Test
+    public void testApplicationNodeImplConstructorAppParamNull() {
+        Application testApp = null;
+        try {
+            ApplicationNode testNode = new ApplicationNodeImpl(testApp);
+        }
+        catch(Exception e){
+            assertEquals(e.getMessage(), "Input application cannot be null.");
+        }
+
+    }
 }
