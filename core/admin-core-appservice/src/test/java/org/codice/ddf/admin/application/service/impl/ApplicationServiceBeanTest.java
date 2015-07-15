@@ -1,6 +1,7 @@
 package org.codice.ddf.admin.application.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.karaf.features.BundleInfo;
 import org.apache.karaf.features.Feature;
 import org.codice.ddf.admin.application.plugin.ApplicationPlugin;
 import org.codice.ddf.admin.application.rest.model.FeatureDetails;
@@ -14,9 +15,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.management.InstanceAlreadyExistsException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.*;
 
 
@@ -34,10 +32,16 @@ public class ApplicationServiceBeanTest {
     private Logger logger = LoggerFactory.getLogger(ApplicationServiceBeanMBean.class);
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception{
         testAppService = mock(ApplicationServiceImpl.class);
         testConfigAdminExt = mock(ConfigurationAdminExt.class);
+        testApp = mock(ApplicationImpl.class);
 
+        when(testApp.getName()).thenReturn("TestApp");
+        when(testApp.getVersion()).thenReturn("0.0.0");
+        when(testApp.getDescription()).thenReturn("Test app for testGetApplicationTree");
+        when(testApp.getURI()).thenReturn(getClass().getClassLoader()
+                .getResource("test-features-with-main-feature.xml").toURI());
     }
 
     /**
@@ -138,7 +142,6 @@ public class ApplicationServiceBeanTest {
         testNode2 = mock(ApplicationNodeImpl.class);
         testNode3 = mock(ApplicationNodeImpl.class);
 
-        testApp = mock(ApplicationImpl.class);
         testStatus = mock(ApplicationStatus.class);
 
         when(testNode1.getApplication()).thenReturn(testApp);
@@ -148,12 +151,6 @@ public class ApplicationServiceBeanTest {
         when(testNode1.getStatus()).thenReturn(testStatus);
         when(testNode2.getStatus()).thenReturn(testStatus);
         when(testNode3.getStatus()).thenReturn(testStatus);
-
-        when(testApp.getName()).thenReturn("TestApp");
-        when(testApp.getVersion()).thenReturn("0.0.0");
-        when(testApp.getDescription()).thenReturn("Test app for testGetApplicationTree");
-        when(testApp.getURI()).thenReturn(getClass().getClassLoader()
-                .getResource("test-features-with-main-feature.xml").toURI());
 
         nodeSet = new TreeSet<>();
         nodeSet.add(testNode1);
@@ -194,9 +191,6 @@ public class ApplicationServiceBeanTest {
      */
     @Test
     public void testGetApplications() {
-/**
- * TODO: Missing coverage in MakeDependencyList(..)
- */
         try {
             setUpTree();
             ApplicationServiceBean serviceBean = new ApplicationServiceBean(testAppService, testConfigAdminExt);
@@ -207,6 +201,83 @@ public class ApplicationServiceBeanTest {
             verify(testNode1).getChildren();
             verify(testNode1, atLeastOnce()).getApplication();
         }catch(Exception e){
+            logger.info("Exception: ", e);
+            fail();
+        }
+    }
+
+    /**
+     * Tests the {@link ApplicationServiceBean#getApplications()} method for the case where
+     * the applications have no children
+     */
+    @Test
+    public void testGetApplicationsNoChildren() {
+        try{
+            setUpTree();
+            ApplicationServiceBean serviceBean = new ApplicationServiceBean(testAppService, testConfigAdminExt);
+            serviceBean.init();
+
+            when(testNode1.getChildren()).thenReturn((new TreeSet<ApplicationNode>()));
+            when(testNode2.getChildren()).thenReturn((new TreeSet<ApplicationNode>()));
+            when(testNode3.getChildren()).thenReturn((new TreeSet<ApplicationNode>()));
+
+            assertNotNull(serviceBean.getApplications());
+
+        }catch(Exception e){
+            logger.info("Exception: ", e);
+            fail();
+        }
+    }
+
+    /**
+     * Tests the {@link ApplicationServiceBean#getApplications()} method for the case where
+     * a child node has dependencies
+     */
+    @Test
+    public void testGetApplicationsChildDependencies() {
+        try{
+            setUpTree();
+            ApplicationServiceBean serviceBean = new ApplicationServiceBean(testAppService, testConfigAdminExt);
+            serviceBean.init();
+
+            ApplicationNode testNode4 = mock(ApplicationNodeImpl.class);
+            when(testNode4.getApplication()).thenReturn(testApp);
+            when(testNode4.getStatus()).thenReturn(testStatus);
+            Set<ApplicationNode> testNode3ChildrenSet = new TreeSet<>();
+            testNode3ChildrenSet.add(testNode4);
+            when(testNode3.getChildren()).thenReturn(testNode3ChildrenSet);
+
+            assertNotNull(serviceBean.getApplications());
+
+        }catch(Exception e) {
+            logger.info("Exception: ", e);
+            fail();
+        }
+    }
+
+    /**
+     * Tests the {@link ApplicationServiceBean#getApplications()} method for the case where
+     * more than one child node has dependencies
+     */
+    @Test
+    public void testGetApplicationsMultiChildDependencies() {
+        try{
+            setUpTree();
+            ApplicationServiceBean serviceBean = new ApplicationServiceBean(testAppService, testConfigAdminExt);
+            serviceBean.init();
+
+            ApplicationNode testNode4 = mock(ApplicationNodeImpl.class);
+            when(testNode4.getApplication()).thenReturn(testApp);
+            when(testNode4.getStatus()).thenReturn(testStatus);
+
+            Set<ApplicationNode> testNode1ChildrenSet = new TreeSet<>();
+            testNode1ChildrenSet.add(testNode2);
+            testNode1ChildrenSet.add(testNode4);
+
+            when(testNode1.getChildren()).thenReturn(testNode1ChildrenSet);
+
+            assertNotNull(serviceBean.getApplications());
+        }catch(Exception e) {
             logger.info("Exception: ", e);
             fail();
         }
@@ -351,10 +422,32 @@ public class ApplicationServiceBeanTest {
     @Test
     public void testGetServices() {
         try{
-//            TODO: This
+            ApplicationServiceBean serviceBean = new ApplicationServiceBean(testAppService, testConfigAdminExt);
+            List<Map<String, Object>> services = new ArrayList<>();
+            Map<String, Object> testService1 = new HashMap<>();
+            List<Map<String, Object>> testService1Configs = new ArrayList<>();
+            Map<String, Object> testConfig1 = new HashMap<>();
+            testConfig1.put("bundle_location", "TestLocation");
+            testService1Configs.add(testConfig1);
+            services.add(testService1);
+            testService1.put("configurations", testService1Configs);
 
+            BundleInfo testBundle1 = mock(BundleInfo.class);
+            Set<BundleInfo> testBundles = new HashSet<>();
+            testBundles.add(testBundle1);
+
+
+            when(testApp.getBundles()).thenReturn(testBundles);
+            when(testBundle1.getLocation()).thenReturn("TestLocation");
+            when(testAppService.getApplication("TestApp")).thenReturn(testApp);
+//            when(testConfigAdminExt.listServices("(" + ConfigurationAdmin.SERVICE_FACTORYPID + "=" + "*)",
+//                    "(" + Constants.SERVICE_PID + "=" + "*)")).thenReturn(services);
+            when(testConfigAdminExt.listServices(any(String.class), any(String.class))).thenReturn(services);
+
+            serviceBean.getServices("TestApp");
         }catch(Exception e) {
-
+            logger.info("Exception: ", e);
+            fail();
         }
     }
 

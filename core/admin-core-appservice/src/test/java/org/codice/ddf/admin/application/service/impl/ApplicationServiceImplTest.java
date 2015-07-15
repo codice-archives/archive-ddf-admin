@@ -40,6 +40,8 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.wiring.BundleRevision;
+import org.osgi.service.cm.Configuration;
+import org.osgi.service.cm.ConfigurationAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1437,6 +1439,38 @@ public class ApplicationServiceImplTest {
         Feature testFeature = mainFeatureRepo.getFeatures()[0];
 
         assertNotNull(appService.findFeature(testFeature));
+    }
+
+    /**
+     * Tests  the {@link ApplicationServiceImpl#setConfigFileName(String)} method
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testSetConfigFileName() throws Exception{
+        Set<Repository> activeRepos = new HashSet<Repository>(
+                Arrays.asList(mainFeatureRepo, noMainFeatureRepo1));
+        FeaturesService featuresService = createMockFeaturesService(activeRepos, null, null);
+        when(bundleContext.getService(mockFeatureRef)).thenReturn(featuresService);
+        ApplicationServiceImpl appService = new ApplicationServiceImpl(bundleStateServices) {
+            @Override
+            protected BundleContext getContext() {
+                return bundleContext;
+            }
+        };
+        ServiceReference<ConfigurationAdmin> testConfigAdminRef = mock(ServiceReference.class);
+        ConfigurationAdmin testConfigAdmin = mock(ConfigurationAdmin.class);
+        Configuration testConfig = mock(Configuration.class);
+        when(bundleContext.getServiceReference(ConfigurationAdmin.class))
+                .thenReturn(testConfigAdminRef);
+        when(bundleContext.getService(testConfigAdminRef)).thenReturn(testConfigAdmin);
+        when(testConfigAdmin.getConfiguration(ApplicationServiceImpl.class.getName()))
+                .thenReturn(testConfig);
+        Dictionary<String, Object> testProperties = mock(Dictionary.class);
+        when(testProperties.get("first-run")).thenReturn(1);
+        when(testConfig.getProperties()).thenReturn(testProperties);
+
+        appService.setConfigFileName("TestFileName");
     }
 
     /**
