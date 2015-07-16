@@ -12,6 +12,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +30,7 @@ public class ApplicationServiceBeanTest {
     ApplicationStatus testStatus;
     Set<ApplicationNode> nodeSet;
     Set<ApplicationNode> childrenSet;
+    BundleContext bundleContext;
 
     private Logger logger = LoggerFactory.getLogger(ApplicationServiceBeanMBean.class);
 
@@ -42,6 +45,7 @@ public class ApplicationServiceBeanTest {
         when(testApp.getDescription()).thenReturn("Test app for testGetApplicationTree");
         when(testApp.getURI()).thenReturn(getClass().getClassLoader()
                 .getResource("test-features-with-main-feature.xml").toURI());
+        bundleContext = mock(BundleContext.class);
     }
 
     /**
@@ -422,7 +426,15 @@ public class ApplicationServiceBeanTest {
     @Test
     public void testGetServices() {
         try{
-            ApplicationServiceBean serviceBean = new ApplicationServiceBean(testAppService, testConfigAdminExt);
+            ApplicationServiceBean serviceBean = new ApplicationServiceBean(testAppService, testConfigAdminExt){
+                @Override
+            protected BundleContext getContext(){
+                    return bundleContext;
+                }
+            };
+            Bundle[] bundles = {};
+            when(bundleContext.getBundles()).thenReturn(bundles);
+
             List<Map<String, Object>> services = new ArrayList<>();
             Map<String, Object> testService1 = new HashMap<>();
             List<Map<String, Object>> testService1Configs = new ArrayList<>();
@@ -440,8 +452,6 @@ public class ApplicationServiceBeanTest {
             when(testApp.getBundles()).thenReturn(testBundles);
             when(testBundle1.getLocation()).thenReturn("TestLocation");
             when(testAppService.getApplication("TestApp")).thenReturn(testApp);
-//            when(testConfigAdminExt.listServices("(" + ConfigurationAdmin.SERVICE_FACTORYPID + "=" + "*)",
-//                    "(" + Constants.SERVICE_PID + "=" + "*)")).thenReturn(services);
             when(testConfigAdminExt.listServices(any(String.class), any(String.class))).thenReturn(services);
 
             serviceBean.getServices("TestApp");
