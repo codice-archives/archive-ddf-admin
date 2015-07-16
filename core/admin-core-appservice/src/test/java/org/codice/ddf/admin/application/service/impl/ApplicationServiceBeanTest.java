@@ -57,7 +57,8 @@ public class ApplicationServiceBeanTest {
         try {
             ApplicationServiceBean serviceBean = new ApplicationServiceBean(testAppService, testConfigAdminExt);
         }catch(Exception e){
-            //If this throws an exception, the test fails
+            logger.info("Exception: ", e);
+            fail();
         }
     }
 
@@ -70,6 +71,7 @@ public class ApplicationServiceBeanTest {
             ApplicationServiceBean serviceBean = new ApplicationServiceBean(testAppService, testConfigAdminExt);
             serviceBean.init();
         }catch(Exception e){
+            logger.info("Exception: ", e);
             fail();
         }
 
@@ -79,6 +81,7 @@ public class ApplicationServiceBeanTest {
             serviceBean.init();
             serviceBean.init();
         }catch(Exception e) {
+            logger.info("Exception: ", e);
             fail();
         }
     }
@@ -93,6 +96,7 @@ public class ApplicationServiceBeanTest {
             serviceBean.init();
             serviceBean.destroy();
         }catch(Exception e){
+            logger.info("Exception: ", e);
             fail();
         }
     }
@@ -132,6 +136,7 @@ public class ApplicationServiceBeanTest {
             serviceBean.init();
             assertNotNull(serviceBean.getInstallationProfiles());
         }catch(Exception e){
+            logger.info("Exception: ", e);
             fail();
         }
     }
