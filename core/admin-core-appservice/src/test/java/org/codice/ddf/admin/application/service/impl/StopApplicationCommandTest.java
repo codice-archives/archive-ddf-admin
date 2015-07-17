@@ -40,7 +40,7 @@ public class StopApplicationCommandTest {
 
         try{
             stopApplicationCommand.doExecute();
-            //verify stuff
+            verify(testAppService).stopApplication("TestApp");
         }catch(Exception e){
             logger.info("Exception", e);
             fail();
