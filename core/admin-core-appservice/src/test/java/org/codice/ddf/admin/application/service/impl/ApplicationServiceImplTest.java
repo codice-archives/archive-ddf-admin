@@ -16,6 +16,7 @@ package org.codice.ddf.admin.application.service.impl;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.io.File;
 import java.net.URI;
 import java.util.*;
 
@@ -1353,12 +1354,15 @@ public class ApplicationServiceImplTest {
             }
         };
 
-        URI testURL = mainFeatureRepo.getURI();
-        testURL = new URI("test:" + testURL.getScheme(), testURL.getHost(), testURL.getPath(), testURL.getFragment());
+        try {
+            URI testURI = ApplicationServiceImplTest.class.getClassLoader().getResource("test-kar.zip").toURI();
 
-        appService.addApplication(testURL);
-
-        verify(featuresService).addRepository(testURL, false);
+            appService.addApplication(testURI);
+            verify(featuresService).addRepository(any(URI.class), eq(false));
+        }catch(Exception e){
+            logger.info("Exception: ", e);
+            fail();
+        }
     }
 
     /**
