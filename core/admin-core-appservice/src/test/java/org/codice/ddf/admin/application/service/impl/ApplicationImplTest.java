@@ -22,6 +22,7 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -160,6 +161,36 @@ public class ApplicationImplTest {
         assertFalse(testApp2.equals(testApp1));
         assertFalse(testApp1.equals(testAppNull));
 
+    }
+
+    /**
+     * Tests the {@link ApplicationImpl#getURI()} method
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testGetURI() throws Exception {
+        URI testURI = getClass().getClassLoader().getResource("test-features-with-main-feature.xml").toURI();
+        RepositoryImpl repo1 = new RepositoryImpl(testURI);
+        repo1.load();
+        Application testApp1 = new ApplicationImpl(repo1);
+        assertEquals(testURI, testApp1.getURI());
+    }
+
+    /**
+     * Tests the {@link ApplicationImpl#getDescription()} method
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testGetDescription() throws Exception {
+        RepositoryImpl repo = new RepositoryImpl(
+                getClass().getClassLoader().getResource("test-features-with-main-feature.xml")
+                        .toURI());
+        repo.load();
+
+        Application testApp = new ApplicationImpl(repo);
+        assertEquals(testApp.getDescription(), "Main Feature Test");
     }
 
 }
