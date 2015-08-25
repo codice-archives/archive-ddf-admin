@@ -21,6 +21,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -37,7 +38,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.codice.ddf.ui.admin.api.module.AdminModule;
-import org.codice.ddf.ui.admin.api.module.ValidationDecorator;
 import org.codice.ddf.ui.admin.api.plugin.ConfigurationAdminPlugin;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -183,18 +183,38 @@ public class ConfigurationAdmin implements ConfigurationAdminMBean {
     }
 
     public List<Map<String, Object>> listModules() {
-        List<ValidationDecorator> adminModules = ValidationDecorator.wrap(moduleList);
-        Collections.sort(adminModules);
-        List<Map<String, Object>> modules = new ArrayList<Map<String, Object>>();
-
-        for (ValidationDecorator module : adminModules) {
-            if (module.isValid()) {
-                modules.add(module.toMap());
-            } else {
-                LOGGER.warn("Couldn't add invalid module, {}", module.getName());
+        List<AdminModule> adminModuleList = new ArrayList<AdminModule>();
+        adminModuleList.addAll(this.moduleList);
+        //just sort alphabetically and then make the first module the active one
+        Collections.sort(adminModuleList, new Comparator<AdminModule>() {
+            @Override
+            public int compare(AdminModule adminModule, AdminModule adminModule2) {
+                return adminModule.getName().compareTo(adminModule2.getName());
             }
+        });
+        List<Map<String, Object>> modules = new ArrayList<Map<String, Object>>();
+        HashMap<String, Object> module;
+        for (AdminModule adminModule : adminModuleList) {
+            module = new HashMap<String, Object>();
+            module.put("name", adminModule.getName());
+            module.put("id", adminModule.getId());
+            if (adminModule.getJSLocation() != null) {
+                module.put("jsLocation", adminModule.getJSLocation().toString());
+            } else {
+                module.put("jsLocation", "");
+            }
+            if (adminModule.getCSSLocation() != null) {
+                module.put("cssLocation", adminModule.getCSSLocation().toString());
+            } else {
+                module.put("cssLocation", "");
+            }
+            if (adminModule.getIframeLocation() != null) {
+                module.put("iframeLocation", adminModule.getIframeLocation().toString());
+            } else {
+                module.put("iframeLocation", "");
+            }
+            modules.add(module);
         }
-
         if (modules.size() > 0) {
             modules.get(0).put("active", true);
         }
