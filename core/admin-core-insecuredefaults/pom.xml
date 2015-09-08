@@ -16,7 +16,7 @@
     <parent>
         <artifactId>admin-core</artifactId>
         <groupId>ddf.admin.core</groupId>
-        <version>1.2.2</version>
+        <version>1.2.3-SNAPSHOT</version>
     </parent>
     <artifactId>admin-core-insecuredefaults</artifactId>
     <name>DDF :: Admin :: Core :: Insecure Defaults</name>
