@@ -16,7 +16,7 @@
     <parent>
         <artifactId>admin</artifactId>
         <groupId>ddf.admin</groupId>
-        <version>1.2.2-SNAPSHOT</version>
+        <version>1.2.2</version>
     </parent>
 
     <name>DDF :: Admin :: UI</name>
